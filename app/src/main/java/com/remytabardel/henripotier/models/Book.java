@@ -1,4 +1,4 @@
-package com.remytabardel.henripotier.services.database.models;
+package com.remytabardel.henripotier.models;
 
 
 import com.raizlabs.android.dbflow.annotation.Column;

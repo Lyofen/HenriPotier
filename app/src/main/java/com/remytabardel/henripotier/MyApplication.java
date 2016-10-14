@@ -24,6 +24,10 @@ public class MyApplication extends Application {
         mInstance = this;
     }
 
+    public static MyApplication getInstance() {
+        return mInstance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -41,6 +45,10 @@ public class MyApplication extends Application {
             //detect bad implementations
             initStrictMode();
         }
+    }
+
+    public AppComponent getComponent() {
+        return mAppComponent;
     }
 
     private void buildDaggerGraph() {

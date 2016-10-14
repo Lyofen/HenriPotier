@@ -26,7 +26,7 @@ public class Database {
     }
 
     public boolean export(String exportFolder) {
-        if(exportFolder == null)
+        if (exportFolder == null)
             return false;
 
         String inFilename = getPath();
@@ -37,6 +37,11 @@ public class Database {
 
     public String getFullName() {
         return NAME + EXT;
+    }
+
+
+    public Transaction newTransaction() {
+        return new Transaction(NAME);
     }
 
 }
