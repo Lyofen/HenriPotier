@@ -6,6 +6,7 @@ import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 
 /**
  * @author Remy Tabardel
+ * We build this class to avoid link between DBFlow and UI, if we need later to changer ORM etc..
  */
 
 public class Transaction {
