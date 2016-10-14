@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+    defaultConfig {
+        applicationId "com.remytabardel.henripotier"
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def RETROFIT_VERSION = '2.0.1'
+def ANDROID_SUPPORT_VERSION = '24.2.1'
+def PICASSO_VERSION = '2.5.2'
+def DBFLOW_VERSION = "3.0.1"
+def LEAK_CANARY_VERSION = "1.4"
+def ROBOLECTRIC_VERSION = "3.1.2"
+def DAGGER_VERSION = "2.5"
+def JUNIT_VERSION = "4.12"
+def BUTTERKNIFE_VERSION = "8.4.0"
+def JOBQUEUE_VERSION = "2.0.0"
+def EVENTBUS_VERSION = "3.0.0"
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:multidex:1.0.1'
+
+    //**********************// TEST //**********************//
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile "junit:junit:${JUNIT_VERSION}"
+
+    //**********************// ANDROID SUPPORT //**********************//
+    compile "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
+    compile "com.android.support:design:${ANDROID_SUPPORT_VERSION}"
+    compile "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"
+    compile "com.android.support:palette-v7:${ANDROID_SUPPORT_VERSION}"
+
+    //**********************// NETWORK //**********************//
+    compile "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
+    compile "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
+    compile("com.squareup.retrofit2:converter-simplexml:${RETROFIT_VERSION}") {
+        exclude module: 'stax'
+        exclude module: 'stax-api'
+        exclude module: 'xpp3'
+    }
+    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+
+    //**********************// IMAGE //**********************//
+    compile "com.squareup.picasso:picasso:${PICASSO_VERSION}"
+
+    //**********************// EVENT //**********************//
+    compile "org.greenrobot:eventbus:${EVENTBUS_VERSION}"
+
+    //**********************// ASYNC TASK //**********************//
+    compile "com.birbit:android-priority-jobqueue:${JOBQUEUE_VERSION}"
+
+    //**********************// VIEW BINDS //**********************//
+    compile "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
+    apt "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
+
+    //**********************// DEPENDENCIES INJECTION //**********************//
+    compile "com.google.dagger:dagger:${DAGGER_VERSION}"
+    apt "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
+    provided "javax.annotation:jsr250-api:1.0"
+    compile "javax.inject:javax.inject:1"
+    testApt "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
+
+    //**********************// DETECT MEMORY LEAK //**********************//
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_VERSION}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_VERSION}"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_VERSION}"
+
+    //**********************// SQLITE //**********************//
+    apt "com.github.Raizlabs.DBFlow:dbflow-processor:${DBFLOW_VERSION}"
+    compile "com.github.Raizlabs.DBFlow:dbflow-core:${DBFLOW_VERSION}"
+    compile "com.github.Raizlabs.DBFlow:dbflow:${DBFLOW_VERSION}"
+    compile "com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:${DBFLOW_VERSION}"
+
+}
