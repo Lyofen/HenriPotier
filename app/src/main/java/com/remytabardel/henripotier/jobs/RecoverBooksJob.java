@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import com.birbit.android.jobqueue.Job;
 import com.birbit.android.jobqueue.Params;
 import com.birbit.android.jobqueue.RetryConstraint;
+import com.remytabardel.henripotier.services.job.jobqueue.Priority;
+import com.squareup.picasso.Picasso;
 
 /**
  * @author Remy Tabardel
@@ -13,8 +15,8 @@ import com.birbit.android.jobqueue.RetryConstraint;
  */
 
 public class RecoverBooksJob extends Job{
-    public RecoverBooksJob(Params params) {
-        super(params);
+    public RecoverBooksJob() {
+        super(new Params(Priority.HIGH).requireNetwork());
     }
 
     @Override

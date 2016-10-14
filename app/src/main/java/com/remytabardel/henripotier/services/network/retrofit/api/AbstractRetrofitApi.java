@@ -47,7 +47,7 @@ abstract class AbstractRetrofitApi<C> {
                     result = response.body();
                 }
             } catch (Exception e) {
-                LogUtils.error("impossible to call " + call.request().url().toString(), e);
+                LogUtils.e("impossible to call " + call.request().url().toString(), e);
                 //we will return null for result
             }
         }
