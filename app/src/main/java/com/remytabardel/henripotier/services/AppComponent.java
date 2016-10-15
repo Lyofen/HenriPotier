@@ -1,7 +1,7 @@
 package com.remytabardel.henripotier.services;
 
 import com.remytabardel.henripotier.activities.SplashActivity;
-import com.remytabardel.henripotier.jobs.RecoverBooksJob;
+import com.remytabardel.henripotier.jobs.SplashLoadingJob;
 import com.remytabardel.henripotier.services.database.DatabaseModule;
 import com.remytabardel.henripotier.services.event.EventModule;
 import com.remytabardel.henripotier.services.image.ImageModule;
@@ -24,7 +24,7 @@ import dagger.Component;
         ImageModule.class,
         DatabaseModule.class})
 public interface AppComponent {
-    void inject(RecoverBooksJob injectedClass);
+    void inject(SplashLoadingJob injectedClass);
 
     void inject(SplashActivity injectedClass);
 }

@@ -1,12 +1,13 @@
 package com.remytabardel.henripotier.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
-import com.remytabardel.henripotier.events.RecoverBooksEvent;
-import com.remytabardel.henripotier.jobs.RecoverBooksJob;
+import com.remytabardel.henripotier.events.SplashLoadingEvent;
+import com.remytabardel.henripotier.jobs.SplashLoadingJob;
 import com.remytabardel.henripotier.services.event.EventPublisher;
 import com.remytabardel.henripotier.services.job.JobScheduler;
 
@@ -26,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         MyApplication.getInstance().getComponent().inject(this);
 
         //we look on HenriPotierApi for new data
-        mJobScheduler.addInBackground(new RecoverBooksJob());
+        mJobScheduler.addInBackground(new SplashLoadingJob());
     }
 
     @Override
@@ -47,15 +48,17 @@ public class SplashActivity extends AppCompatActivity {
      * @param event
      */
     @Subscribe
-    public void onRecoverBooksEvent(RecoverBooksEvent event) {
-        //books have been inserted in database, we can continue
-        if (event.isSuccess()) {
-
-        } else {
-            //here we should adapt message with internet connection, error inserting etc..
-            //but we will consider only network error here
-
-            //DIALOG HOOK
+    public void onRecoverBooksEvent(SplashLoadingEvent event) {
+        switch (event.getLoadingResult()) {
+            case SplashLoadingEvent.LOADING_RESULT_OK:
+                startActivity(new Intent(this, MainActivity.class));
+                break;
+            //we should render message for every situation, but we will render only internet pb for the moment (most likely)
+            case SplashLoadingEvent.LOADING_RESULT_ERR_INSERT:
+            case SplashLoadingEvent.LOADING_RESULT_ERR_INTERNET:
+            case SplashLoadingEvent.LOADING_RESULT_ERR_UNKNOWN:
+            default:
+                break;
         }
     }
 }

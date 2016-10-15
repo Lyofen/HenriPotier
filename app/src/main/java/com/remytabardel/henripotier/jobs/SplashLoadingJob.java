@@ -7,7 +7,7 @@ import com.birbit.android.jobqueue.Job;
 import com.birbit.android.jobqueue.Params;
 import com.birbit.android.jobqueue.RetryConstraint;
 import com.remytabardel.henripotier.MyApplication;
-import com.remytabardel.henripotier.events.RecoverBooksEvent;
+import com.remytabardel.henripotier.events.SplashLoadingEvent;
 import com.remytabardel.henripotier.services.database.BookDao;
 import com.remytabardel.henripotier.services.database.Database;
 import com.remytabardel.henripotier.services.database.Transaction;
@@ -26,13 +26,13 @@ import javax.inject.Inject;
  *         Call HenriPotierApi to recover books
  */
 
-public class RecoverBooksJob extends Job {
+public class SplashLoadingJob extends Job {
     @Inject HenriPotierApi mHenriPotierApi;
     @Inject BookDao mBookDao;
     @Inject EventPublisher mEventPublisher;
     @Inject Database mDatabase;
 
-    public RecoverBooksJob() {
+    public SplashLoadingJob() {
         super(new Params(Priority.HIGH).requireNetwork());
 
         MyApplication.getInstance().getComponent().inject(this);
@@ -43,24 +43,40 @@ public class RecoverBooksJob extends Job {
 
     }
 
+    /**
+     * we need to post event for each exception and treat it in SplashActivity
+     */
+    private class SplashLoadingException extends Exception {
+        private final SplashLoadingEvent mSplashLoadingEvent;
+
+        public SplashLoadingException(SplashLoadingEvent splashLoadingEvent) {
+            mSplashLoadingEvent = splashLoadingEvent;
+        }
+
+        public SplashLoadingEvent getEvent() {
+            return mSplashLoadingEvent;
+        }
+    }
+
     @Override
     public void onRun() throws Throwable {
         List<BookJson> jsonBooks = recoverJsonBooks();
 
         LogUtils.d("HenriPotierApi.getBooks return " + jsonBooks.size() + " books");
 
-        //i need to sell myself... =°
+        //i need to sell myself...
         addBonusBookData(jsonBooks);
 
         saveJsonInDatabase(jsonBooks);
 
         LogUtils.d("books insert in database successfull");
 
-        mEventPublisher.post(new RecoverBooksEvent(true));
+        //everything is ok, we can continue in SplashActivity
+        mEventPublisher.post(new SplashLoadingEvent(SplashLoadingEvent.LOADING_RESULT_OK));
     }
 
     private void addBonusBookData(List<BookJson> jsonBooks) {
-        jsonBooks.add(new BookJson("lepetitdeveloppeurandroid",
+        jsonBooks.add(new BookJson("le-dev-android",
                 "Rémy Tabardel",
                 45,
                 ""));
@@ -78,7 +94,8 @@ public class RecoverBooksJob extends Job {
             if (mBookDao.insert(bookJson) == false) {
                 //if error, we end transaction before setSuccessful, so modifications will not be apply
                 transaction.end();
-                throw new Exception("impossible to insert json book : " + bookJson.toString());
+                LogUtils.e("impossible to insert json book : " + bookJson.toString());
+                throw new SplashLoadingException(new SplashLoadingEvent(SplashLoadingEvent.LOADING_RESULT_ERR_INSERT));
             }
         }
 
@@ -91,7 +108,8 @@ public class RecoverBooksJob extends Job {
         List<BookJson> jsonBooks = mHenriPotierApi.getBooks();
 
         if (jsonBooks == null || jsonBooks.isEmpty()) {
-            throw new Exception("no data from HenriPotierApi.getBooks");
+            LogUtils.e("no data from HenriPotierApi.getBooks");
+            throw new SplashLoadingException(new SplashLoadingEvent(SplashLoadingEvent.LOADING_RESULT_ERR_INTERNET));
         }
 
         return jsonBooks;
@@ -99,9 +117,16 @@ public class RecoverBooksJob extends Job {
 
     @Override
     protected void onCancel(int cancelReason, @Nullable Throwable throwable) {
-        LogUtils.e("error during recovering books json", throwable);
+        SplashLoadingEvent splashLoadingEvent;
 
-        mEventPublisher.post(new RecoverBooksEvent(false));
+        //if we known exception,
+        if (throwable instanceof SplashLoadingException) {
+            splashLoadingEvent = ((SplashLoadingException) throwable).getEvent();
+        } else {
+            splashLoadingEvent = new SplashLoadingEvent(SplashLoadingEvent.LOADING_RESULT_ERR_UNKNOWN);
+        }
+
+        mEventPublisher.post(splashLoadingEvent);
     }
 
     @Override protected int getRetryLimit() {
