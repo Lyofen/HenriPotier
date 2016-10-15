@@ -1,6 +1,8 @@
 package com.remytabardel.henripotier.services.image.picasso;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v7.graphics.Palette;
 import android.widget.ImageView;
 
 import com.remytabardel.henripotier.services.image.ImageLoader;
@@ -25,5 +27,25 @@ public class PicassoImageLoader implements ImageLoader {
     @Override public void loadGif(int resId, ImageView imageView) {
         //picasso dont support gif
         Picasso.with(mContext).load(resId).into(imageView);
+    }
+
+    @Override public Palette getPalette(Context context, String path) {
+        Palette palette = null;
+        Bitmap bitmap = null;
+
+        try {
+            bitmap = Picasso.with(context).load(path).get();
+            if (bitmap != null && !bitmap.isRecycled()) {
+                palette = Palette.from(bitmap).generate();
+            }
+        } catch (Exception e) {
+
+        } finally {
+            if (bitmap != null) {
+                bitmap.recycle();
+            }
+        }
+
+        return palette;
     }
 }

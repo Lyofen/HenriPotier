@@ -1,5 +1,7 @@
 package com.remytabardel.henripotier.services.image;
 
+import android.content.Context;
+import android.support.v7.graphics.Palette;
 import android.widget.ImageView;
 
 /**
@@ -11,4 +13,5 @@ import android.widget.ImageView;
 public interface ImageLoader {
     void load(String path, ImageView imageView);
     void loadGif(int resId, ImageView imageView);
+    Palette getPalette(Context context, String path);
 }

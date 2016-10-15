@@ -1,5 +1,7 @@
 package com.remytabardel.henripotier.services.database;
 
+import android.support.v7.graphics.Palette;
+
 import com.remytabardel.henripotier.models.Book;
 import com.remytabardel.henripotier.services.network.json.BookJson;
 
@@ -15,4 +17,6 @@ public interface BookDao {
     void deleteAll();
 
     boolean insert(BookJson bookJson);
+
+
 }

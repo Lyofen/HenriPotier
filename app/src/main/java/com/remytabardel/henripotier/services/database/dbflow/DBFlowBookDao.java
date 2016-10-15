@@ -1,5 +1,7 @@
 package com.remytabardel.henripotier.services.database.dbflow;
 
+import android.support.v7.graphics.Palette;
+
 import com.raizlabs.android.dbflow.sql.language.OrderBy;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.remytabardel.henripotier.models.Book;

@@ -3,6 +3,7 @@ package com.remytabardel.henripotier.services;
 import com.remytabardel.henripotier.activities.MainActivity;
 import com.remytabardel.henripotier.activities.SplashActivity;
 import com.remytabardel.henripotier.dialogs.ConnectionErrorDialog;
+import com.remytabardel.henripotier.fragments.BooksFragment;
 import com.remytabardel.henripotier.jobs.SplashLoadingJob;
 import com.remytabardel.henripotier.services.database.DatabaseModule;
 import com.remytabardel.henripotier.services.event.EventModule;
@@ -33,4 +34,6 @@ public interface AppComponent {
     void inject(MainActivity injectedClass);
 
     void inject(ConnectionErrorDialog injectedClass);
+
+    void inject(BooksFragment injectedClass);
 }
