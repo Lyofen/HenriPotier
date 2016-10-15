@@ -2,7 +2,6 @@ package com.remytabardel.henripotier.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
@@ -18,11 +17,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+
 /**
  * @author Remy Tabardel
  */
 
-public class SplashActivity extends AppCompatActivity implements ConnectionErrorListener {
+public class SplashActivity extends AbstractActivity implements ConnectionErrorListener {
     @Inject JobScheduler mJobScheduler;
     @Inject EventPublisher mEventPublisher;
 

@@ -23,6 +23,7 @@ android {
 def RETROFIT_VERSION = '2.0.1'
 def ANDROID_SUPPORT_VERSION = '24.2.1'
 def PICASSO_VERSION = '2.5.2'
+def GLIDE_VERSION = '3.7.0'
 def DBFLOW_VERSION = "3.0.1"
 def LEAK_CANARY_VERSION = "1.4"
 def ROBOLECTRIC_VERSION = "3.1.2"
@@ -48,6 +49,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"
     compile "com.android.support:palette-v7:${ANDROID_SUPPORT_VERSION}"
     compile "com.android.support:support-annotations:${ANDROID_SUPPORT_VERSION}"
+    compile "com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"
 
     //**********************// NETWORK //**********************//
     compile "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
@@ -61,6 +63,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
 
     //**********************// IMAGE //**********************//
+    //we include both to show how switch implementation in ImageModule with dagger
+    compile "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
     compile "com.squareup.picasso:picasso:${PICASSO_VERSION}"
 
     //**********************// EVENT //**********************//

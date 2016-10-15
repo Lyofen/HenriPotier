@@ -10,4 +10,5 @@ import android.widget.ImageView;
 
 public interface ImageLoader {
     void load(String path, ImageView imageView);
+    void loadGif(int resId, ImageView imageView);
 }

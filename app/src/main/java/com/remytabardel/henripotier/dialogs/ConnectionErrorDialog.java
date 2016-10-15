@@ -2,10 +2,16 @@ package com.remytabardel.henripotier.dialogs;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.listeners.ConnectionErrorListener;
+import com.remytabardel.henripotier.services.image.ImageLoader;
 
+import javax.inject.Inject;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -14,6 +20,8 @@ import butterknife.OnClick;
  */
 
 public class ConnectionErrorDialog extends AbstractDialog {
+    @Inject ImageLoader mImageLoader;
+
     private final ConnectionErrorListener mListener;
 
     public ConnectionErrorDialog(Context context, ConnectionErrorListener listener) {
@@ -38,13 +46,13 @@ public class ConnectionErrorDialog extends AbstractDialog {
     }
 
     @OnClick(R.id.button_retry)
-    public void onClickRetry() {
+    public void onClickButtonRetry() {
         dismiss();
         mListener.onRetryConnection();
     }
 
     @OnClick(R.id.button_quit)
-    public void onClickQuit() {
+    public void onClickButtonQuit() {
         dismiss();
         mListener.onQuitApplication();
     }

@@ -2,7 +2,7 @@ package com.remytabardel.henripotier.services.image;
 
 import android.content.Context;
 
-import com.remytabardel.henripotier.services.image.picasso.PicassoImageLoader;
+import com.remytabardel.henripotier.services.image.glide.GlideImageLoader;
 
 import javax.inject.Singleton;
 
@@ -19,12 +19,14 @@ public class ImageModule {
 
     /**
      * We can provide here ImageLoader with any implementation (Picasso, Glide..), just change instantiation
+     *
      * @param context
      * @return
      */
     @Provides
     @Singleton
     ImageLoader provideImagesService(Context context) {
-        return new PicassoImageLoader(context);
+        return new GlideImageLoader(context);
+        //return new PicassoImageLoader(context);
     }
 }
