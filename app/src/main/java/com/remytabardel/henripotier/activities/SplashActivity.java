@@ -6,18 +6,27 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
+import com.remytabardel.henripotier.dialogs.ConnectionErrorDialog;
 import com.remytabardel.henripotier.events.SplashLoadingEvent;
 import com.remytabardel.henripotier.jobs.SplashLoadingJob;
+import com.remytabardel.henripotier.listeners.ConnectionErrorListener;
 import com.remytabardel.henripotier.services.event.EventPublisher;
 import com.remytabardel.henripotier.services.job.JobScheduler;
 
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
-public class SplashActivity extends AppCompatActivity {
+/**
+ * @author Remy Tabardel
+ */
+
+public class SplashActivity extends AppCompatActivity implements ConnectionErrorListener {
     @Inject JobScheduler mJobScheduler;
     @Inject EventPublisher mEventPublisher;
+
+    private ConnectionErrorDialog mConnectionErrorDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +34,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         MyApplication.getInstance().getComponent().inject(this);
+
+        mConnectionErrorDialog = new ConnectionErrorDialog(this, this);
 
         //we look on HenriPotierApi for new data
         mJobScheduler.addInBackground(new SplashLoadingJob());
@@ -47,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
      *
      * @param event
      */
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRecoverBooksEvent(SplashLoadingEvent event) {
         switch (event.getLoadingResult()) {
             case SplashLoadingEvent.LOADING_RESULT_OK:
@@ -58,7 +69,17 @@ public class SplashActivity extends AppCompatActivity {
             case SplashLoadingEvent.LOADING_RESULT_ERR_INTERNET:
             case SplashLoadingEvent.LOADING_RESULT_ERR_UNKNOWN:
             default:
+                mConnectionErrorDialog.show();
                 break;
         }
+    }
+
+    @Override public void onRetryConnection() {
+        //retry to recover data
+        mJobScheduler.addInBackground(new SplashLoadingJob());
+    }
+
+    @Override public void onQuitApplication() {
+        finish();
     }
 }

@@ -15,6 +15,10 @@ import android.view.MenuItem;
 
 import com.remytabardel.henripotier.R;
 
+/**
+ * @author Remy Tabardel
+ */
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

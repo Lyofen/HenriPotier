@@ -33,7 +33,8 @@ public class SplashLoadingJob extends Job {
     @Inject Database mDatabase;
 
     public SplashLoadingJob() {
-        super(new Params(Priority.HIGH).requireNetwork());
+        //we dont use requireNetwork because we want handle exception
+        super(new Params(Priority.HIGH));
 
         MyApplication.getInstance().getComponent().inject(this);
     }
@@ -119,10 +120,11 @@ public class SplashLoadingJob extends Job {
     protected void onCancel(int cancelReason, @Nullable Throwable throwable) {
         SplashLoadingEvent splashLoadingEvent;
 
-        //if we known exception,
+        //if we known exception, we recover event
         if (throwable instanceof SplashLoadingException) {
             splashLoadingEvent = ((SplashLoadingException) throwable).getEvent();
         } else {
+            LogUtils.e("unknown error during SplashLoadingJob", throwable);
             splashLoadingEvent = new SplashLoadingEvent(SplashLoadingEvent.LOADING_RESULT_ERR_UNKNOWN);
         }
 
