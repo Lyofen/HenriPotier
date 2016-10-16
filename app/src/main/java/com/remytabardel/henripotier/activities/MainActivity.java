@@ -32,6 +32,7 @@ public class MainActivity extends AbstractActivity
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.nav_view) NavigationView mNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +42,23 @@ public class MainActivity extends AbstractActivity
         ButterKnife.bind(this);
         MyApplication.getInstance().getComponent().inject(this);
 
+        initToolbar();
+
+        mNavigationView.setNavigationItemSelectedListener(this);
+
+        //we set the first fragment to display
+        replaceFragment(new BooksFragment(), R.id.fragment_container);
+    }
+
+    private void initToolbar() {
         setSupportActionBar(mToolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.setDrawerListener(toggle);
+        mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        replaceFragment(new BooksFragment(), R.id.fragment_container);
     }
+
 
     @OnClick(R.id.fab)
     public void onClickFloatingButton(View view) {
@@ -72,7 +78,7 @@ public class MainActivity extends AbstractActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -97,17 +103,9 @@ public class MainActivity extends AbstractActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_books) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_cart) {
 
         }
 

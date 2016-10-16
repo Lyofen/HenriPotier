@@ -39,7 +39,7 @@ public class PicassoImageLoader implements ImageLoader {
                 palette = Palette.from(bitmap).generate();
             }
         } catch (Exception e) {
-
+            //we will return null;
         } finally {
             if (bitmap != null) {
                 bitmap.recycle();
@@ -47,5 +47,9 @@ public class PicassoImageLoader implements ImageLoader {
         }
 
         return palette;
+    }
+
+    @Override public void preload(String path) {
+        Picasso.with(mContext).load(path).fetch();
     }
 }

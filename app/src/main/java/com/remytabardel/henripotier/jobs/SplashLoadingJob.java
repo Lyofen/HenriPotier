@@ -1,5 +1,6 @@
 package com.remytabardel.henripotier.jobs;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -12,6 +13,7 @@ import com.remytabardel.henripotier.services.database.BookDao;
 import com.remytabardel.henripotier.services.database.Database;
 import com.remytabardel.henripotier.services.database.Transaction;
 import com.remytabardel.henripotier.services.event.EventPublisher;
+import com.remytabardel.henripotier.services.image.ImageLoader;
 import com.remytabardel.henripotier.services.job.jobqueue.Priority;
 import com.remytabardel.henripotier.services.network.HenriPotierApi;
 import com.remytabardel.henripotier.services.network.json.BookJson;
@@ -31,6 +33,7 @@ public class SplashLoadingJob extends Job {
     @Inject BookDao mBookDao;
     @Inject EventPublisher mEventPublisher;
     @Inject Database mDatabase;
+    @Inject ImageLoader mImageLoader;
 
     public SplashLoadingJob() {
         //we dont use requireNetwork because we want handle exception
@@ -65,6 +68,9 @@ public class SplashLoadingJob extends Job {
 
         LogUtils.d("HenriPotierApi.getBooks return " + jsonBooks.size() + " books");
 
+        //internet is required for splash loading so we can preload images here
+        preloadBookCovers(jsonBooks);
+
         //i need to sell myself...
         addBonusBookData(jsonBooks);
 
@@ -81,6 +87,18 @@ public class SplashLoadingJob extends Job {
                 "Rémy Tabardel",
                 45,
                 ""));
+    }
+
+    private void preloadBookCovers(final List<BookJson> jsonBooks) {
+        //we can't preload on background thread, so we need menu_main thread
+        Handler handler = new Handler(getApplicationContext().getMainLooper());
+        handler.post(new Runnable() {
+            @Override public void run() {
+                for (BookJson json : jsonBooks) {
+                    mImageLoader.preload(json.getCover());
+                }
+            }
+        });
     }
 
     private void saveJsonInDatabase(List<BookJson> jsonBooks) throws Throwable {

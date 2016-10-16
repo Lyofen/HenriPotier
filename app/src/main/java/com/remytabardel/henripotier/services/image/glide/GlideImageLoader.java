@@ -6,6 +6,7 @@ import android.support.v7.graphics.Palette;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.remytabardel.henripotier.services.image.ImageLoader;
 
 /**
@@ -39,7 +40,7 @@ public class GlideImageLoader implements ImageLoader {
                 palette = Palette.from(bitmap).generate();
             }
         } catch (Exception e) {
-
+            //we will return null
         } finally {
             if (bitmap != null) {
                 bitmap.recycle();
@@ -47,5 +48,12 @@ public class GlideImageLoader implements ImageLoader {
         }
 
         return palette;
+    }
+
+    @Override public void preload(String path) {
+        Glide.with(mContext)
+                .load(path)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .preload();
     }
 }

@@ -14,4 +14,5 @@ public interface ImageLoader {
     void load(String path, ImageView imageView);
     void loadGif(int resId, ImageView imageView);
     Palette getPalette(Context context, String path);
+    void preload(String path);
 }
