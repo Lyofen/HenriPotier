@@ -6,7 +6,6 @@ import android.support.v7.graphics.Palette;
 
 import com.raizlabs.android.dbflow.sql.language.OrderBy;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.models.Book;
 import com.remytabardel.henripotier.models.BookTheme;
 import com.remytabardel.henripotier.models.Book_Table;
@@ -45,9 +44,9 @@ public class DBFlowBookDao implements BookDao {
 
     @Override public boolean insertBookTheme(Context context, String isbn, Palette palette) {
         BookTheme bookTheme = new BookTheme(isbn,
-                palette.getDarkMutedColor(ContextCompat.getColor(context, R.color.colorAccent)),
-                palette.getMutedColor(ContextCompat.getColor(context, R.color.colorAccent)),
-                palette.getLightVibrantColor(ContextCompat.getColor(context, R.color.colorAccent)));
+                palette.getDarkMutedColor(ContextCompat.getColor(context, android.R.color.black)),
+                palette.getMutedColor(ContextCompat.getColor(context, android.R.color.black)),
+                palette.getLightVibrantColor(ContextCompat.getColor(context, android.R.color.white)));
 
         bookTheme.save();
 

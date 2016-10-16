@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.textview_title) TextView mTextViewTitle;
+        @BindView(R.id.textview_price) TextView mTextViewPrice;
+        @BindView(R.id.textview_isbn) TextView mTextViewIsbn;
         @BindView(R.id.imageview_cover) ImageView mImageViewCover;
 
         public ViewHolder(View view) {
@@ -54,9 +56,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
         mImageLoader.load(currentBook.getCover(), holder.mImageViewCover);
         holder.mTextViewTitle.setText(currentBook.getTitle());
+        holder.mTextViewIsbn.setText(currentBook.getIsbn());
+        holder.mTextViewPrice.setText(currentBook.getPrice() + " €");
 
         //set theme colors
         holder.mTextViewTitle.setTextColor(currentBook.getBookTheme().getColorTextTitle());
+        holder.mTextViewIsbn.setTextColor(currentBook.getBookTheme().getColorTextBody());
+        holder.mTextViewPrice.setTextColor(currentBook.getBookTheme().getColorTextBody());
         holder.itemView.setBackgroundColor(currentBook.getBookTheme().getColorBackground());
 
     }
