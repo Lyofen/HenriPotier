@@ -22,7 +22,7 @@ public class DBFlowBookDao implements BookDao {
     @Override public List<Book> selectAll() {
         return SQLite.select()
                 .from(Book.class)
-                .orderBy(OrderBy.fromProperty(Book_Table.title).ascending())
+                .orderBy(OrderBy.fromProperty(Book_Table.num).ascending())
                 .queryList();
     }
 
@@ -30,11 +30,12 @@ public class DBFlowBookDao implements BookDao {
         SQLite.delete(Book.class).query();
     }
 
-    @Override public boolean insertBook(BookJson bookJson) {
+    @Override public boolean insertBook(BookJson bookJson, int num) {
         Book book = new Book(bookJson.getIsbn(),
                 bookJson.getTitle(),
                 bookJson.getPrice(),
-                bookJson.getCover());
+                bookJson.getCover(),
+                num);
 
         book.save();
 
@@ -43,10 +44,22 @@ public class DBFlowBookDao implements BookDao {
     }
 
     @Override public boolean insertBookTheme(Context context, String isbn, Palette palette) {
-        BookTheme bookTheme = new BookTheme(isbn,
-                palette.getDarkMutedColor(ContextCompat.getColor(context, android.R.color.black)),
-                palette.getMutedColor(ContextCompat.getColor(context, android.R.color.black)),
-                palette.getLightVibrantColor(ContextCompat.getColor(context, android.R.color.white)));
+        BookTheme bookTheme;
+
+        if (palette != null) {
+            bookTheme = new BookTheme(isbn,
+                    palette.getDarkMutedColor(ContextCompat.getColor(context, android.R.color.black)),
+                    palette.getMutedColor(ContextCompat.getColor(context, android.R.color.black)),
+                    palette.getLightVibrantColor(ContextCompat.getColor(context, android.R.color.white)));
+
+        } else {
+            //if no palette we use default colors
+            bookTheme = new BookTheme(isbn,
+                    ContextCompat.getColor(context, android.R.color.black),
+                    ContextCompat.getColor(context, android.R.color.black),
+                    ContextCompat.getColor(context, android.R.color.white));
+
+        }
 
         bookTheme.save();
 

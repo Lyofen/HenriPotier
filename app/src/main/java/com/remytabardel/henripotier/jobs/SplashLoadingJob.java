@@ -94,15 +94,17 @@ public class SplashLoadingJob extends Job {
         //we need to delete all old books to replace with new data
         mBookDao.deleteAll();
 
-        for (BookJson bookJson : jsonBooks) {
-            //we recover cover's palette to personnalize books list
-            Palette palette = mImageLoader.getPalette(getApplicationContext(), bookJson.getCover());
+        for (int i = 0; i < jsonBooks.size();i++) {
+            BookJson json = jsonBooks.get(i);
 
-            if (mBookDao.insertBook(bookJson) == false
-                    || mBookDao.insertBookTheme(getApplicationContext(), bookJson.getIsbn(), palette) == false) {
+            //we recover cover's palette to personnalize books list
+            Palette palette = mImageLoader.getPalette(getApplicationContext(), json.getCover());
+
+            if (mBookDao.insertBook(json, i) == false
+                    || mBookDao.insertBookTheme(getApplicationContext(), json.getIsbn(), palette) == false) {
                 //if error, we end transaction before setSuccessful, so modifications will not be apply
                 transaction.end();
-                LogUtils.e("impossible to insertBook json book : " + bookJson.toString());
+                LogUtils.e("impossible to insertBook json book : " + json.toString());
                 throw new SplashLoadingException(new SplashLoadingEvent(SplashLoadingEvent.LOADING_RESULT_ERR_INSERT));
             }
         }

@@ -17,7 +17,7 @@ public interface BookDao {
 
     void deleteAll();
 
-    boolean insertBook(BookJson bookJson);
+    boolean insertBook(BookJson bookJson, int num);
 
     boolean insertBookTheme(Context context, String isbn, Palette palette);
 }

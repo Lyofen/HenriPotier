@@ -6,6 +6,10 @@
 
     <string name="action_settings">Settings</string>
 
+    <!-- item book -->
+    <string name="fragment_books_item_isbn">isbn : %1s</string>
+    <string name="fragment_books_item_price">%1s €</string>
+
     <!-- ConnectionErrorDialog -->
     <string name="dialog_connection_error_retry">Retry</string>
     <string name="dialog_connection_error_quit">Quit</string>

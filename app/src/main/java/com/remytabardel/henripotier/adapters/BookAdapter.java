@@ -56,13 +56,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
         mImageLoader.load(currentBook.getCover(), holder.mImageViewCover);
         holder.mTextViewTitle.setText(currentBook.getTitle());
-        holder.mTextViewIsbn.setText(currentBook.getIsbn());
-        holder.mTextViewPrice.setText(currentBook.getPrice() + " €");
+        holder.mTextViewIsbn.setText(mContext.getString(R.string.fragment_books_item_isbn, currentBook.getIsbn()));
+        holder.mTextViewPrice.setText(mContext.getString(R.string.fragment_books_item_price, currentBook.getPrice()));
 
         //set theme colors
         holder.mTextViewTitle.setTextColor(currentBook.getBookTheme().getColorTextTitle());
         holder.mTextViewIsbn.setTextColor(currentBook.getBookTheme().getColorTextBody());
-        holder.mTextViewPrice.setTextColor(currentBook.getBookTheme().getColorTextBody());
+       // holder.mTextViewPrice.setTextColor(currentBook.getBookTheme().getColorTextBody());
         holder.itemView.setBackgroundColor(currentBook.getBookTheme().getColorBackground());
 
     }

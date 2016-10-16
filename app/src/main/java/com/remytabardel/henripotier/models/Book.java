@@ -23,17 +23,20 @@ public class Book extends BaseModel {
     double price;
     @Column
     String cover;
+    @Column
+    int num;
     @ColumnIgnore
     BookTheme bookTheme;
 
     public Book() {
     }
 
-    public Book(String isbn, String title, double price, String cover) {
+    public Book(String isbn, String title, double price, String cover, int num) {
         this.isbn = isbn;
         this.title = title;
         this.price = price;
         this.cover = cover;
+        this.num = num;
     }
 
     public String getIsbn() {
@@ -50,6 +53,10 @@ public class Book extends BaseModel {
 
     public String getCover() {
         return cover;
+    }
+
+    public int getNum() {
+        return num;
     }
 
     public BookTheme getBookTheme() {
