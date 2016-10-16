@@ -76,7 +76,7 @@ public class SplashLoadingJob extends Job {
 
         saveJsonInDatabase(jsonBooks);
 
-        LogUtils.d("books insert in database successfull");
+        LogUtils.d("books insertBook in database successfull");
 
         //everything is ok, we can continue in SplashActivity
         mEventPublisher.post(new SplashLoadingEvent(SplashLoadingEvent.LOADING_RESULT_OK));
@@ -110,10 +110,10 @@ public class SplashLoadingJob extends Job {
         mBookDao.deleteAll();
 
         for (BookJson bookJson : jsonBooks) {
-            if (mBookDao.insert(bookJson) == false) {
+            if (mBookDao.insertBook(bookJson) == false) {
                 //if error, we end transaction before setSuccessful, so modifications will not be apply
                 transaction.end();
-                LogUtils.e("impossible to insert json book : " + bookJson.toString());
+                LogUtils.e("impossible to insertBook json book : " + bookJson.toString());
                 throw new SplashLoadingException(new SplashLoadingEvent(SplashLoadingEvent.LOADING_RESULT_ERR_INSERT));
             }
         }

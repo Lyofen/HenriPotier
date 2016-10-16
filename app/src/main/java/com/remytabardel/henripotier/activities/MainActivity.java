@@ -11,9 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.remytabardel.henripotier.BuildConfig;
 import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.fragments.BooksFragment;
+import com.remytabardel.henripotier.fragments.CartFragment;
 import com.remytabardel.henripotier.services.event.EventPublisher;
 
 import javax.inject.Inject;
@@ -28,6 +30,8 @@ import butterknife.OnClick;
 
 public class MainActivity extends AbstractActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
+
     @Inject EventPublisher mEventPublisher;
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -44,10 +48,10 @@ public class MainActivity extends AbstractActivity
 
         initToolbar();
 
-        mNavigationView.setNavigationItemSelectedListener(this);
+        initNavigation();
 
         //we set the first fragment to display
-        replaceFragment(new BooksFragment(), R.id.fragment_container);
+        replaceFragment(new BooksFragment(), FRAGMENT_CONTAINER_ID);
     }
 
     private void initToolbar() {
@@ -59,6 +63,18 @@ public class MainActivity extends AbstractActivity
         toggle.syncState();
     }
 
+    private void initNavigation()
+    {
+        mNavigationView.setNavigationItemSelectedListener(this);
+
+        if (BuildConfig.DEBUG) {
+            Menu menu = mNavigationView.getMenu();
+            MenuItem menuItem = menu.add(R.id.grp2, 2233, 2, R.string.nav_main_item_debug);
+            menuItem.setIcon(android.R.drawable.ic_menu_more);
+            menuItem.setVisible(true);
+            menuItem.setCheckable(true);
+        }
+    }
 
     @OnClick(R.id.fab)
     public void onClickFloatingButton(View view) {
@@ -100,13 +116,16 @@ public class MainActivity extends AbstractActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_books) {
-
-        } else if (id == R.id.nav_cart) {
-
+        switch (item.getItemId())
+        {
+            case R.id.nav_books:
+                replaceFragment(new BooksFragment(), FRAGMENT_CONTAINER_ID);
+                break;
+            case R.id.nav_cart:
+                replaceFragment(new CartFragment(), FRAGMENT_CONTAINER_ID);
+                break;
+            default:
+                break;
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

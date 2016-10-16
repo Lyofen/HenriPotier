@@ -15,63 +15,36 @@ public class BookTheme extends BaseModel {
     @PrimaryKey
     String isbn;
     @Column
-    int colorVibrantSwatch;
+    int colorTextTitle;
     @Column
-    int colorVibrantDarkSwatch;
+    int colorTextBody;
     @Column
-    int colorVibrantLightSwatch;
-    @Column
-    int colorMutedSwatch;
-    @Column
-    int colorMutedDarkSwatch;
-    @Column
-    int colorMutedLightSwatch;
+    int colorBackground;
 
     public BookTheme() {
 
     }
 
-    public BookTheme(String isbn,
-                     int colorVibrantSwatch,
-                     int colorVibrantDarkSwatch,
-                     int colorVibrantLightSwatch,
-                     int colorMutedSwatch,
-                     int colorMutedDarkSwatch,
-                     int colorMutedLightSwatch) {
+    public BookTheme(String isbn, int colorTextTitle, int colorTextBody, int colorBackground) {
         this.isbn = isbn;
-        this.colorVibrantSwatch = colorVibrantSwatch;
-        this.colorVibrantDarkSwatch = colorVibrantDarkSwatch;
-        this.colorVibrantLightSwatch = colorVibrantLightSwatch;
-        this.colorMutedSwatch = colorMutedSwatch;
-        this.colorMutedDarkSwatch = colorMutedDarkSwatch;
-        this.colorMutedLightSwatch = colorMutedLightSwatch;
+        this.colorTextTitle = colorTextTitle;
+        this.colorTextBody = colorTextBody;
+        this.colorBackground = colorBackground;
     }
 
     public String getIsbn() {
         return isbn;
     }
 
-    public int getColorVibrantSwatch() {
-        return colorVibrantSwatch;
+    public int getColorTextTitle() {
+        return colorTextTitle;
     }
 
-    public int getColorVibrantDarkSwatch() {
-        return colorVibrantDarkSwatch;
+    public int getColorTextBody() {
+        return colorTextBody;
     }
 
-    public int getColorVibrantLightSwatch() {
-        return colorVibrantLightSwatch;
-    }
-
-    public int getColorMutedSwatch() {
-        return colorMutedSwatch;
-    }
-
-    public int getColorMutedDarkSwatch() {
-        return colorMutedDarkSwatch;
-    }
-
-    public int getColorMutedLightSwatch() {
-        return colorMutedLightSwatch;
+    public int getColorBackground() {
+        return colorBackground;
     }
 }
