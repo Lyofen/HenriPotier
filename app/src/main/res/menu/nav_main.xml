@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:id="@+id/grp1" android:checkableBehavior="single">
+    <group
+        android:id="@+id/grp1"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_books"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_book"
             android:title="@string/nav_main_item_books"/>
         <item
             android:id="@+id/nav_cart"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_shopping_cart"
             android:title="@string/nav_main_item_cart"/>
     </group>
-    <group android:id="@+id/grp2" android:checkableBehavior="single" >
+    <group
+        android:id="@+id/grp2"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_about"
             android:icon="@android:drawable/alert_dark_frame"
