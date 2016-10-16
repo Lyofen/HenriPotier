@@ -2,8 +2,10 @@ package com.remytabardel.henripotier.models;
 
 
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ColumnIgnore;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.remytabardel.henripotier.services.database.Database;
 
@@ -21,6 +23,8 @@ public class Book extends BaseModel {
     double price;
     @Column
     String cover;
+    @ColumnIgnore
+    BookTheme bookTheme;
 
     public Book() {
     }
@@ -46,5 +50,15 @@ public class Book extends BaseModel {
 
     public String getCover() {
         return cover;
+    }
+
+    public BookTheme getBookTheme() {
+        if (bookTheme == null) {
+            bookTheme = SQLite.select()
+                    .from(BookTheme.class)
+                    .where(BookTheme_Table.isbn.eq(isbn))
+                    .querySingle();
+        }
+        return bookTheme;
     }
 }

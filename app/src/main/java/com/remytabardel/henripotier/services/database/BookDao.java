@@ -1,5 +1,6 @@
 package com.remytabardel.henripotier.services.database;
 
+import android.content.Context;
 import android.support.v7.graphics.Palette;
 
 import com.remytabardel.henripotier.models.Book;
@@ -18,5 +19,5 @@ public interface BookDao {
 
     boolean insertBook(BookJson bookJson);
 
-    boolean insertBookTheme(String isbn, Palette palette);
+    boolean insertBookTheme(Context context, String isbn, Palette palette);
 }

@@ -2,7 +2,7 @@ package com.remytabardel.henripotier.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +14,7 @@ import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.adapters.BookAdapter;
 import com.remytabardel.henripotier.services.database.BookDao;
+import com.remytabardel.henripotier.services.image.ImageLoader;
 
 import javax.inject.Inject;
 
@@ -27,6 +28,7 @@ import butterknife.ButterKnife;
 public class BooksFragment extends AbstractFragment {
 
     @Inject BookDao mBookDao;
+    @Inject ImageLoader mImageLoader;
 
     @BindView(R.id.recyclerview) RecyclerView mRecyclerView;
 
@@ -56,10 +58,11 @@ public class BooksFragment extends AbstractFragment {
     }
 
     private void initRecyclerView() {
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        //in landscape we can render more columns
+        int nbColumns = getResources().getInteger(R.integer.fragment_books_nb_columns);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), nbColumns));
 
-        BookAdapter myAdapter = new BookAdapter(getContext(), mBookDao.selectAll());
+        BookAdapter myAdapter = new BookAdapter(getContext(), mImageLoader, mBookDao.selectAll());
         mRecyclerView.setAdapter(myAdapter);
     }
 }

@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.models.Book;
+import com.remytabardel.henripotier.services.image.ImageLoader;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ import butterknife.ButterKnife;
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.textview_title) TextView mTextViewTitle;
+        @BindView(R.id.imageview_cover) ImageView mImageViewCover;
 
         public ViewHolder(View view) {
             super(view);
@@ -30,10 +33,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     }
 
     private Context mContext;
+    private ImageLoader mImageLoader;
     private List<Book> mDataset;
 
-    public BookAdapter(Context context, List<Book> books) {
+    public BookAdapter(Context context, ImageLoader imageLoader, List<Book> books) {
         mContext = context;
+        mImageLoader = imageLoader;
         mDataset = books;
     }
 
@@ -47,7 +52,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
         Book currentBook = mDataset.get(position);
 
+        mImageLoader.load(currentBook.getCover(), holder.mImageViewCover);
         holder.mTextViewTitle.setText(currentBook.getTitle());
+
+        //set theme colors
+        holder.mTextViewTitle.setTextColor(currentBook.getBookTheme().getColorTextTitle());
+        holder.itemView.setBackgroundColor(currentBook.getBookTheme().getColorBackground());
+
     }
 
     @Override public int getItemCount() {

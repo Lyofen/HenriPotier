@@ -6,6 +6,7 @@ import android.support.v7.graphics.Palette;
 import android.widget.ImageView;
 
 import com.remytabardel.henripotier.services.image.ImageLoader;
+import com.remytabardel.henripotier.utils.LogUtils;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -35,15 +36,10 @@ public class PicassoImageLoader implements ImageLoader {
 
         try {
             bitmap = Picasso.with(context).load(path).get();
-            if (bitmap != null && !bitmap.isRecycled()) {
-                palette = Palette.from(bitmap).generate();
-            }
+            palette = Palette.from(bitmap).generate();
         } catch (Exception e) {
-            //we will return null;
-        } finally {
-            if (bitmap != null) {
-                bitmap.recycle();
-            }
+            //we will return null
+            LogUtils.e("getPalette error", e);
         }
 
         return palette;

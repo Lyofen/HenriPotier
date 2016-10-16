@@ -63,13 +63,13 @@ public class MainActivity extends AbstractActivity
         toggle.syncState();
     }
 
-    private void initNavigation()
-    {
+    private void initNavigation() {
         mNavigationView.setNavigationItemSelectedListener(this);
 
+        //we can add dev menu in debug for help features (export database, look version for testers..)
         if (BuildConfig.DEBUG) {
             Menu menu = mNavigationView.getMenu();
-            MenuItem menuItem = menu.add(R.id.grp2, 2233, 2, R.string.nav_main_item_debug);
+            MenuItem menuItem = menu.add(R.id.group_more, R.id.nav_debug, 2, R.string.nav_main_item_debug);
             menuItem.setIcon(android.R.drawable.ic_menu_more);
             menuItem.setVisible(true);
             menuItem.setCheckable(true);
@@ -116,12 +116,17 @@ public class MainActivity extends AbstractActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.nav_books:
                 replaceFragment(new BooksFragment(), FRAGMENT_CONTAINER_ID);
                 break;
             case R.id.nav_cart:
+                replaceFragment(new CartFragment(), FRAGMENT_CONTAINER_ID);
+                break;
+            case R.id.nav_about:
+                replaceFragment(new CartFragment(), FRAGMENT_CONTAINER_ID);
+                break;
+            case R.id.nav_debug:
                 replaceFragment(new CartFragment(), FRAGMENT_CONTAINER_ID);
                 break;
             default:

@@ -1,9 +1,12 @@
 package com.remytabardel.henripotier.services.database.dbflow;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
 
 import com.raizlabs.android.dbflow.sql.language.OrderBy;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.models.Book;
 import com.remytabardel.henripotier.models.BookTheme;
 import com.remytabardel.henripotier.models.Book_Table;
@@ -40,13 +43,11 @@ public class DBFlowBookDao implements BookDao {
         return true;
     }
 
-    @Override public boolean insertBookTheme(String isbn, Palette palette) {
-        Palette.Swatch swatch = palette.getVibrantSwatch();
-
+    @Override public boolean insertBookTheme(Context context, String isbn, Palette palette) {
         BookTheme bookTheme = new BookTheme(isbn,
-                swatch.getTitleTextColor(),
-                swatch.getBodyTextColor(),
-                swatch.getRgb());
+                palette.getDarkMutedColor(ContextCompat.getColor(context, R.color.colorAccent)),
+                palette.getMutedColor(ContextCompat.getColor(context, R.color.colorAccent)),
+                palette.getLightVibrantColor(ContextCompat.getColor(context, R.color.colorAccent)));
 
         bookTheme.save();
 
