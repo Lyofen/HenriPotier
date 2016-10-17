@@ -12,13 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.remytabardel.henripotier.BuildConfig;
-import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.fragments.BooksFragment;
 import com.remytabardel.henripotier.fragments.CartFragment;
-import com.remytabardel.henripotier.services.event.EventPublisher;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,8 +43,10 @@ public class MainActivity extends AbstractActivity
 
         initNavigation();
 
-        //we set the first fragment to display
-        replaceFragment(new BooksFragment(), FRAGMENT_CONTAINER_ID);
+        //we set the first fragment only on the first onCreate
+        if (savedInstanceState == null) {
+            replaceFragment(new BooksFragment(), FRAGMENT_CONTAINER_ID);
+        }
     }
 
     private void initToolbar() {

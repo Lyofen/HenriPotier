@@ -1,7 +1,9 @@
 package com.remytabardel.henripotier.services.cart;
 
 import android.content.Context;
+import android.support.annotation.MainThread;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.models.CartItem;
@@ -24,9 +26,11 @@ public class ShoppingCart {
     private int mCurrentItemsQuantity;
     private CartItemDao mCartItemDao;
     private Object mMutex;//we need to check add and remove, cant use both at the same time
+    private Context mContext;
 
     public ShoppingCart(Context context, CartItemDao cartItemDao, BookDao bookDao) {
-        QUANTITY_LIMIT = context.getResources().getInteger(R.integer.shopping_cart_quantity_limit);
+        QUANTITY_LIMIT = 2;//context.getResources().getInteger(R.integer.shopping_cart_quantity_limit);
+        mContext = context;
         mCartItemDao = cartItemDao;
         mItems = cartItemDao.selectAll();
         mMutex = new Object();
@@ -44,9 +48,10 @@ public class ShoppingCart {
     private void checkItems(BookDao bookDao) {
         Iterator<CartItem> iterator = mItems.iterator();
 
-        if (iterator.hasNext()) {
+        while (iterator.hasNext()) {
             CartItem cartItem = iterator.next();
 
+            //if book added in cart refer to deleted book, we delete item
             if (bookDao.exists(cartItem.getIsbn()) == false) {
                 mCartItemDao.delete(cartItem);
                 iterator.remove();
@@ -56,32 +61,44 @@ public class ShoppingCart {
         }
     }
 
+    public List<CartItem> getItems() {
+        return mItems;
+    }
+
     /**
      * add book to list cart, if already in, add 1 to quantity
      *
      * @param isbn
      * @return true if added, false if cant add because exceed QUANTITY_LIMIT
      */
+    @MainThread
     public boolean addItem(String isbn) {
         boolean itemAdded = false;
 
         if (TextUtils.isEmpty(isbn) == false) {
             synchronized (mMutex) {
-                CartItem cartItem = researchItem(isbn);
+                //if we dont exceed limit we can add
+                if ((mCurrentItemsQuantity + 1) <= QUANTITY_LIMIT) {
+                    CartItem cartItem = researchItem(isbn);
 
-                //we need to create item and insert in database
-                if (cartItem == null) {
-                    itemAdded = true;
-                    cartItem = new CartItem(isbn, 1);
-                    mCartItemDao.insert(cartItem);
-                    mItems.add(cartItem);
-                }
-                //if we dont exceed limit
-                else if ((mCurrentItemsQuantity + 1) <= QUANTITY_LIMIT) {
                     itemAdded = true;
                     mCurrentItemsQuantity += 1;
-                    cartItem.setQuantity(cartItem.getQuantity() + 1);
-                    mCartItemDao.update(cartItem);
+
+                    //we need to create item and insert in database
+                    if (cartItem == null) {
+                        cartItem = new CartItem(isbn, 1);
+                        mCartItemDao.insert(cartItem);
+                        mItems.add(cartItem);
+                    }
+                    //item already in cart, just add 1 quantity
+                    else {
+                        cartItem.setQuantity(cartItem.getQuantity() + 1);
+                        mCartItemDao.update(cartItem);
+                    }
+                }
+                //we exceed limit we can't add
+                else {
+                    Toast.makeText(mContext, mContext.getString(R.string.shopping_cart_exceed_limit, Integer.toString(QUANTITY_LIMIT)), Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -94,37 +111,56 @@ public class ShoppingCart {
     }
 
     /**
-     * remove book from list cart, if is the last item, remove entirely from list
+     * remove book from list cart, only work if quantity of item > 1
+     * use deleteItem method if you want remove item from list
      *
      * @param isbn
      * @return true if removed, false if not found in list
      */
-    public boolean removeItem(String isbn) {
+    @MainThread
+    public boolean subtractItem(String isbn) {
         boolean itemRemoved = false;
 
         if (TextUtils.isEmpty(isbn) == false) {
             synchronized (mMutex) {
                 CartItem cartItem = researchItem(isbn);
 
-                if (cartItem != null) {
+                //we can remove item only if quandtity > 2, if want delete use deleteItem method
+                if (cartItem != null && cartItem.getQuantity() > 1) {
                     itemRemoved = true;
 
-                    //if we remove the last item of book, we need to delete it from list
-                    //we can use == but prefer <= for security
-                    if (cartItem.getQuantity() <= 1) {
-                        mCartItemDao.delete(cartItem);
-                        mItems.remove(cartItem);
-                    }
-                    //we have more than 1 item of this book, so we can just remove 1
-                    else {
-                        cartItem.setQuantity(cartItem.getQuantity() - 1);
-                        mCartItemDao.update(cartItem);
-                    }
+                    cartItem.setQuantity(cartItem.getQuantity() - 1);
+                    mCartItemDao.update(cartItem);
+
                 }
             }
         }
 
         return itemRemoved;
+    }
+
+    /**
+     * remove item from cart list
+     *
+     * @param isbn
+     * @return true if deleted, false if not found in list
+     */
+    public boolean deleteItem(String isbn) {
+        boolean itemDeleted = false;
+
+        if (TextUtils.isEmpty(isbn) == false) {
+            synchronized (mMutex) {
+                CartItem cartItem = researchItem(isbn);
+
+                if (cartItem != null) {
+                    itemDeleted = true;
+                    mCartItemDao.delete(cartItem);
+                    mItems.remove(cartItem);
+                }
+            }
+        }
+
+        return itemDeleted;
     }
 
     /**

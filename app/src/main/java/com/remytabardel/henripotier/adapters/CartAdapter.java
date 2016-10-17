@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.remytabardel.henripotier.R;
@@ -32,8 +31,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         TextView mTextViewPrice;
         @BindView(R.id.imageview_cover)
         ImageView mImageViewCover;
-        @BindView(R.id.relative_content)
-        RelativeLayout mRelativeContent;
 
         public ViewHolder(View view) {
             super(view);
@@ -65,7 +62,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         mImageLoader.load(currentItem.getBook().getCover(), holder.mImageViewCover);
         holder.mTextViewTitle.setText(currentItem.getBook().getTitle());
-        holder.mTextViewIsbn.setText(currentItem.getBook().getTitle());
+        holder.mTextViewIsbn.setText(mContext.getString(R.string.fragment_cart_item_isbn, currentItem.getIsbn()));
         holder.mTextViewPrice.setText(mContext.getString(R.string.fragment_cart_item_price, Double.toString(currentItem.getBook().getPrice())));
 
     }

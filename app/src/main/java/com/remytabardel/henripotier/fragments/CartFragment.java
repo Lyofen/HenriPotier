@@ -2,6 +2,7 @@ package com.remytabardel.henripotier.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,7 +10,13 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
+import com.remytabardel.henripotier.adapters.CartAdapter;
+import com.remytabardel.henripotier.services.cart.ShoppingCart;
+import com.remytabardel.henripotier.services.image.ImageLoader;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +26,9 @@ import butterknife.ButterKnife;
  */
 
 public class CartFragment extends AbstractFragment {
+    @Inject ShoppingCart mShoppingCart;
+    @Inject ImageLoader mImageLoader;
+
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
 
@@ -42,5 +52,15 @@ public class CartFragment extends AbstractFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        MyApplication.getInstance().getComponent().inject(this);
+
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        CartAdapter adapter = new CartAdapter(getContext(), mImageLoader, mShoppingCart.getItems());
+        mRecyclerView.setAdapter(adapter);
     }
 }
