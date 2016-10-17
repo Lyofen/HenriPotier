@@ -17,15 +17,15 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
-
 /**
  * @author Remy Tabardel
  */
 
 public class SplashActivity extends AbstractActivity implements ConnectionErrorListener {
-    @Inject JobScheduler mJobScheduler;
-    @Inject EventPublisher mEventPublisher;
+    @Inject
+    JobScheduler mJobScheduler;
+    @Inject
+    EventPublisher mEventPublisher;
 
     private ConnectionErrorDialog mConnectionErrorDialog;
 
@@ -39,6 +39,8 @@ public class SplashActivity extends AbstractActivity implements ConnectionErrorL
         mConnectionErrorDialog = new ConnectionErrorDialog(this, this);
 
         //we look on HenriPotierApi for new data
+        //we could avoid this job if we had already launch app because we have save in database
+        //but it means we should check price etc.. for changements
         mJobScheduler.addInBackground(new SplashLoadingJob());
     }
 
@@ -75,12 +77,14 @@ public class SplashActivity extends AbstractActivity implements ConnectionErrorL
         }
     }
 
-    @Override public void onRetryConnection() {
+    @Override
+    public void onRetryConnection() {
         //retry to recover data
         mJobScheduler.addInBackground(new SplashLoadingJob());
     }
 
-    @Override public void onQuitApplication() {
+    @Override
+    public void onQuitApplication() {
         finish();
     }
 }

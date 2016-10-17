@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.adapters.BookAdapter;
+import com.remytabardel.henripotier.services.cart.ShoppingCart;
 import com.remytabardel.henripotier.services.database.BookDao;
 import com.remytabardel.henripotier.services.image.ImageLoader;
 
@@ -29,6 +30,7 @@ public class BooksFragment extends AbstractFragment {
 
     @Inject BookDao mBookDao;
     @Inject ImageLoader mImageLoader;
+    @Inject ShoppingCart mShoppingCart;
 
     @BindView(R.id.recyclerview) RecyclerView mRecyclerView;
 

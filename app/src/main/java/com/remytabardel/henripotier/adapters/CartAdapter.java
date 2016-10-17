@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.remytabardel.henripotier.R;
-import com.remytabardel.henripotier.models.Book;
+import com.remytabardel.henripotier.models.CartItem;
 import com.remytabardel.henripotier.services.image.ImageLoader;
 
 import java.util.List;
@@ -22,10 +22,12 @@ import butterknife.ButterKnife;
  * @author Remy Tabardel
  */
 
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.textview_title)
         TextView mTextViewTitle;
+        @BindView(R.id.textview_isbn)
+        TextView mTextViewIsbn;
         @BindView(R.id.textview_price)
         TextView mTextViewPrice;
         @BindView(R.id.imageview_cover)
@@ -41,33 +43,30 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
     private Context mContext;
     private ImageLoader mImageLoader;
-    private List<Book> mDataset;
+    private List<CartItem> mDataset;
 
-    public BookAdapter(Context context, ImageLoader imageLoader, List<Book> books) {
+    public CartAdapter(Context context, ImageLoader imageLoader, List<CartItem> items) {
         mContext = context;
         mImageLoader = imageLoader;
-        mDataset = books;
+        mDataset = items;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CartAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_book, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+                .inflate(R.layout.item_cart, parent, false);
+        CartAdapter.ViewHolder viewHolder = new CartAdapter.ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Book currentBook = mDataset.get(position);
+    public void onBindViewHolder(CartAdapter.ViewHolder holder, int position) {
+        CartItem currentItem = mDataset.get(position);
 
-        mImageLoader.load(currentBook.getCover(), holder.mImageViewCover);
-        holder.mTextViewTitle.setText(currentBook.getTitle());
-        holder.mTextViewPrice.setText(mContext.getString(R.string.fragment_books_item_price, Double.toString(currentBook.getPrice())));
-
-        //set theme colors
-        holder.mTextViewTitle.setTextColor(currentBook.getBookTheme().getColorTextTitle());
-        holder.mRelativeContent.setBackgroundColor(currentBook.getBookTheme().getColorBackground());
+        mImageLoader.load(currentItem.getBook().getCover(), holder.mImageViewCover);
+        holder.mTextViewTitle.setText(currentItem.getBook().getTitle());
+        holder.mTextViewIsbn.setText(currentItem.getBook().getTitle());
+        holder.mTextViewPrice.setText(mContext.getString(R.string.fragment_cart_item_price, Double.toString(currentItem.getBook().getPrice())));
 
     }
 

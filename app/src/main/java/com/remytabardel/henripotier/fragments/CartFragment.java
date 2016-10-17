@@ -2,6 +2,7 @@ package com.remytabardel.henripotier.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.remytabardel.henripotier.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -17,6 +19,9 @@ import butterknife.ButterKnife;
  */
 
 public class CartFragment extends AbstractFragment {
+    @BindView(R.id.recyclerview)
+    RecyclerView mRecyclerView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

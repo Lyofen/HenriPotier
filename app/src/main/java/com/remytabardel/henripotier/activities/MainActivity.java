@@ -32,8 +32,6 @@ public class MainActivity extends AbstractActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
 
-    @Inject EventPublisher mEventPublisher;
-
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view) NavigationView mNavigationView;
@@ -44,7 +42,6 @@ public class MainActivity extends AbstractActivity
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        MyApplication.getInstance().getComponent().inject(this);
 
         initToolbar();
 

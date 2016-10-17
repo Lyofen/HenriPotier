@@ -16,21 +16,35 @@ import java.util.List;
 
 /**
  * @author Remy Tabardel
+ *         Link between BookDao interface and DBFlow
  */
 
 public class DBFlowBookDao implements BookDao {
-    @Override public List<Book> selectAll() {
+    @Override
+    public List<Book> selectAll() {
         return SQLite.select()
                 .from(Book.class)
                 .orderBy(OrderBy.fromProperty(Book_Table.num).ascending())
                 .queryList();
     }
 
-    @Override public void deleteAll() {
+    @Override
+    public boolean exists(String isbn) {
+        Book book = SQLite.select()
+                .from(Book.class)
+                .where(Book_Table.isbn.is(isbn))
+                .querySingle();
+
+        return book != null;
+    }
+
+    @Override
+    public void deleteAll() {
         SQLite.delete(Book.class).query();
     }
 
-    @Override public boolean insertBook(BookJson bookJson, int num) {
+    @Override
+    public boolean insertBook(BookJson bookJson, int num) {
         Book book = new Book(bookJson.getIsbn(),
                 bookJson.getTitle(),
                 bookJson.getPrice(),
@@ -39,11 +53,12 @@ public class DBFlowBookDao implements BookDao {
 
         book.save();
 
-        //for the moment i've not seen a way to check insertion..
+        //at the moment i've not seen a way to check insertion..
         return true;
     }
 
-    @Override public boolean insertBookTheme(Context context, String isbn, Palette palette) {
+    @Override
+    public boolean insertBookTheme(Context context, String isbn, Palette palette) {
         BookTheme bookTheme;
 
         if (palette != null) {
@@ -63,7 +78,7 @@ public class DBFlowBookDao implements BookDao {
 
         bookTheme.save();
 
-        //for the moment i've not seen a way to check insertion..
+        //at the moment i've not seen a way to check insertion..
         return true;
     }
 }

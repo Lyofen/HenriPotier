@@ -3,6 +3,7 @@ package com.remytabardel.henripotier.services.database;
 import android.content.Context;
 
 import com.remytabardel.henripotier.services.database.dbflow.DBFlowBookDao;
+import com.remytabardel.henripotier.services.database.dbflow.DBFlowCartItemDao;
 
 import javax.inject.Singleton;
 
@@ -25,5 +26,11 @@ public class DatabaseModule {
     @Singleton
     BookDao provideBookDao() {
         return new DBFlowBookDao();
+    }
+
+    @Provides
+    @Singleton
+    CartItemDao provideCartItemDao() {
+        return new DBFlowCartItemDao();
     }
 }
