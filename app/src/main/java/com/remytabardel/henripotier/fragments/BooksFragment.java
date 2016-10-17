@@ -64,7 +64,7 @@ public class BooksFragment extends AbstractFragment {
         int nbColumns = getResources().getInteger(R.integer.fragment_books_nb_columns);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), nbColumns));
 
-        BookAdapter myAdapter = new BookAdapter(getContext(), mImageLoader, mBookDao.selectAll());
+        BookAdapter myAdapter = new BookAdapter(getContext(), mShoppingCart, mImageLoader, mBookDao.selectAll());
         mRecyclerView.setAdapter(myAdapter);
     }
 }

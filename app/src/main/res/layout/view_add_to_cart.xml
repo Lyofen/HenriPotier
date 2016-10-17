@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/ic_input_add" />
+    <ImageView
+        android:layout_width="@dimen/add_to_cart_view_size"
+        android:layout_height="@dimen/add_to_cart_view_size"
+        android:background="@drawable/ic_add_shopping_cart"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="eee" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/ic_input_delete" />
+    <ImageView
+        android:layout_width="@dimen/add_to_cart_view_size"
+        android:layout_height="@dimen/add_to_cart_view_size"
+        android:background="@drawable/ic_done"/>
 
 </merge>

@@ -10,4 +10,7 @@
     <!-- item book -->
     <dimen name="item_book_height">100dp</dimen>
     <dimen name="item_cart_height">100dp</dimen>
+
+    <!-- add to cart view -->
+    <dimen name="add_to_cart_view_size">30dp</dimen>
 </resources>
