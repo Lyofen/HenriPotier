@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.remytabardel.henripotier.R;
@@ -27,6 +28,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         @BindView(R.id.textview_price) TextView mTextViewPrice;
         @BindView(R.id.textview_isbn) TextView mTextViewIsbn;
         @BindView(R.id.imageview_cover) ImageView mImageViewCover;
+        @BindView(R.id.relative_content) RelativeLayout mRelativeContent;
 
         public ViewHolder(View view) {
             super(view);
@@ -62,8 +64,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         //set theme colors
         holder.mTextViewTitle.setTextColor(currentBook.getBookTheme().getColorTextTitle());
         holder.mTextViewIsbn.setTextColor(currentBook.getBookTheme().getColorTextBody());
-       // holder.mTextViewPrice.setTextColor(currentBook.getBookTheme().getColorTextBody());
-        holder.itemView.setBackgroundColor(currentBook.getBookTheme().getColorBackground());
+        holder.mRelativeContent.setBackgroundColor(currentBook.getBookTheme().getColorBackground());
 
     }
 
