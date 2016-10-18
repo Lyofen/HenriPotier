@@ -7,12 +7,14 @@
 
     <string name="action_settings">Settings</string>
 
-    <!-- item book -->
+    <!-- books fragment -->
     <string name="fragment_books_item_price">%1s €</string>
 
-    <!-- item cart -->
+    <!-- cart fragment -->
     <string name="fragment_cart_item_isbn">isbn : %1s</string>
     <string name="fragment_cart_item_price">Unit price : %1s €</string>
+    <string name="fragment_cart_empty_text">You\'re shopping cart is empty, look our collection !</string>
+    <string name="fragment_cart_button_look">Look collection</string>
 
     <!-- ConnectionErrorDialog -->
     <string name="dialog_connection_error_retry">Retry</string>

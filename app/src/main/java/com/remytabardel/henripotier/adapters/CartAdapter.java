@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.remytabardel.henripotier.R;
+import com.remytabardel.henripotier.listeners.CartAdapterListener;
 import com.remytabardel.henripotier.models.CartItem;
 import com.remytabardel.henripotier.services.cart.ShoppingCart;
 import com.remytabardel.henripotier.services.image.ImageLoader;
@@ -49,12 +50,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private ImageLoader mImageLoader;
     private ShoppingCart mShoppingCart;
     private List<CartItem> mDataset;
+    private CartAdapterListener mCartAdapterListener;
 
-    public CartAdapter(Context context, ShoppingCart shoppingCart, ImageLoader imageLoader) {
+    public CartAdapter(Context context, ShoppingCart shoppingCart, ImageLoader imageLoader, CartAdapterListener cartAdapterListener) {
         mContext = context;
         mImageLoader = imageLoader;
         mShoppingCart = shoppingCart;
         mDataset = mShoppingCart.getItems();
+        mCartAdapterListener = cartAdapterListener;
+        //we notify on initialisation too
+        mCartAdapterListener.onItemCountChanged(mDataset.size());
     }
 
     @Override
@@ -83,8 +88,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         imageButtonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShoppingCart.deleteItem(cartItem.getIsbn());
-                notifyDataSetChanged();
+                if (mShoppingCart.deleteItem(cartItem.getIsbn())) {
+                    mCartAdapterListener.onItemCountChanged(mDataset.size());
+                    notifyDataSetChanged();
+                }
             }
         });
     }

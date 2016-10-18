@@ -3,6 +3,7 @@ package com.remytabardel.henripotier;
 
 import android.app.Application;
 import android.os.StrictMode;
+import android.support.multidex.MultiDexApplication;
 
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -15,7 +16,7 @@ import com.squareup.leakcanary.LeakCanary;
  * @author Remy Tabardel
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     //need application instance for injection
     private static MyApplication mInstance;
     private AppComponent mAppComponent;

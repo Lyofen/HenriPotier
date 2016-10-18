@@ -3,6 +3,6 @@
     <gradient
         android:startColor="@color/colorLightBackground"
         android:centerColor="@color/colorLightBackground"
-        android:endColor="@color/colorShapeItemCart"
+        android:endColor="@color/colorShapeGradientGray"
         android:angle="0"/>
 </shape>
