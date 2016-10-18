@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.remytabardel.henripotier.services.image.ImageLoader;
 import com.remytabardel.henripotier.utils.LogUtils;
 
@@ -36,7 +37,7 @@ public class GlideImageLoader implements ImageLoader {
         Bitmap bitmap = null;
 
         try {
-            bitmap = Glide.with(context).load(path).asBitmap().into(100, 100).get();
+            bitmap = Glide.with(context).load(path).asBitmap().into(500, 500).get();
             if (bitmap != null) {
                 palette = Palette.from(bitmap).generate();
             }

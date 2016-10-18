@@ -42,8 +42,8 @@ public class CartItem extends BaseModel {
         return quantity;
     }
 
-    public void setQuantity(int nb) {
-        quantity += nb;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public long getAddedTime() {

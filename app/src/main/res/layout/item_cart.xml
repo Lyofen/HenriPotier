@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/item_cart_height"
-                android:layout_margin="1dp"
-                android:padding="2dp">
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_cart_height"
+    android:layout_margin="1dp"
+    android:padding="2dp">
 
     <ImageView
         android:id="@+id/imageview_cover"
@@ -11,14 +11,14 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/linear_buttons"
         android:layout_margin="2dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp" />
 
     <TextView
         android:id="@+id/textview_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/imageview_cover"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textview_isbn"
@@ -26,14 +26,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textview_title"
         android:layout_toRightOf="@+id/imageview_cover"
-        android:textStyle="italic"/>
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/textview_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textview_isbn"
-        android:layout_toRightOf="@+id/imageview_cover"/>
+        android:layout_toRightOf="@+id/imageview_cover" />
 
     <LinearLayout
         android:id="@+id/linear_buttons"
@@ -42,11 +42,19 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_vertical|right"
         android:orientation="horizontal"
-        android:paddingRight="20dp">
+        android:padding="5dp"
+        android:background="@drawable/shape_bg_gradient_gray">
+
+        <com.remytabardel.henripotier.views.QuantitySelectorView
+            android:id="@+id/quantityselectorview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp" />
 
         <ImageButton
-            android:layout_width="@dimen/button_size"
-            android:layout_height="@dimen/button_size"
-            android:background="@drawable/ic_remove_shopping_cart"/>
+            android:id="@+id/imagebutton_delete"
+            android:layout_width="@dimen/item_button_size"
+            android:layout_height="@dimen/item_button_size"
+            android:background="@drawable/ic_remove_shopping_cart" />
     </LinearLayout>
 </RelativeLayout>

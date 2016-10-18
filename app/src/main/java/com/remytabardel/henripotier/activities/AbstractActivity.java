@@ -24,8 +24,6 @@ public abstract class AbstractActivity extends AppCompatActivity {
             if (currentFragmentDisplayed == null || !currentFragmentDisplayed.getClass().equals(fragmentToDisplay.getClass())) {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(fragmentContainerId, fragmentToDisplay, TAG_CURRENT_FRAGMENT);
-                //// TODO: 15/10/2016 remove toast
-                Toast.makeText(this, "new Fragment", Toast.LENGTH_SHORT).show();
                 fragmentTransaction.commit();
             }
         }

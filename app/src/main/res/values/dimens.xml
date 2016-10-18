@@ -12,5 +12,5 @@
     <dimen name="item_cart_height">100dp</dimen>
 
     <!-- add to cart view -->
-    <dimen name="button_size">30dp</dimen>
+    <dimen name="item_button_size">30dp</dimen>
 </resources>

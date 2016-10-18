@@ -63,9 +63,10 @@ public class DBFlowBookDao implements BookDao {
 
         if (palette != null) {
             bookTheme = new BookTheme(isbn,
-                    palette.getDarkMutedColor(ContextCompat.getColor(context, android.R.color.black)),
+                    ContextCompat.getColor(context, android.R.color.black),
                     palette.getMutedColor(ContextCompat.getColor(context, android.R.color.black)),
-                    palette.getLightVibrantColor(ContextCompat.getColor(context, android.R.color.white)));
+                    //sometimes problem with lightvibrant to find color on henri potier et la coupe de feu's cover, so use vibrant instead
+                    palette.getLightVibrantColor(palette.getVibrantColor(ContextCompat.getColor(context, android.R.color.white))));
 
         } else {
             //if no palette we use default colors

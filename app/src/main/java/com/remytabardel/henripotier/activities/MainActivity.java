@@ -13,8 +13,10 @@ import android.view.View;
 
 import com.remytabardel.henripotier.BuildConfig;
 import com.remytabardel.henripotier.R;
+import com.remytabardel.henripotier.fragments.AboutFragment;
 import com.remytabardel.henripotier.fragments.BooksFragment;
 import com.remytabardel.henripotier.fragments.CartFragment;
+import com.remytabardel.henripotier.fragments.DebugFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,11 +28,14 @@ import butterknife.OnClick;
 
 public class MainActivity extends AbstractActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
+    public static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
-    @BindView(R.id.nav_view) NavigationView mNavigationView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @BindView(R.id.nav_view)
+    NavigationView mNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,26 +91,10 @@ public class MainActivity extends AbstractActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void performNavigationClick(int navId) {
+        mNavigationView.getMenu().performIdentifierAction(navId, 0);
+        //we need to check item because perform dont do it
+        mNavigationView.setCheckedItem(navId);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -119,10 +108,10 @@ public class MainActivity extends AbstractActivity
                 replaceFragment(new CartFragment(), FRAGMENT_CONTAINER_ID);
                 break;
             case R.id.nav_about:
-                replaceFragment(new CartFragment(), FRAGMENT_CONTAINER_ID);
+                replaceFragment(new AboutFragment(), FRAGMENT_CONTAINER_ID);
                 break;
             case R.id.nav_debug:
-                replaceFragment(new CartFragment(), FRAGMENT_CONTAINER_ID);
+                replaceFragment(new DebugFragment(), FRAGMENT_CONTAINER_ID);
                 break;
             default:
                 break;

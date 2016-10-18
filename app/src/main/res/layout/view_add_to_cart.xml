@@ -4,13 +4,13 @@
        android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="@dimen/button_size"
-        android:layout_height="@dimen/button_size"
+        android:layout_width="@dimen/item_button_size"
+        android:layout_height="@dimen/item_button_size"
         android:background="@drawable/ic_add_shopping_cart"/>
 
     <ImageView
-        android:layout_width="@dimen/button_size"
-        android:layout_height="@dimen/button_size"
+        android:layout_width="@dimen/item_button_size"
+        android:layout_height="@dimen/item_button_size"
         android:background="@drawable/ic_done"/>
 
 </merge>

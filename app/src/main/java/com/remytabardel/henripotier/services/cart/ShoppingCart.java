@@ -9,6 +9,7 @@ import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.models.CartItem;
 import com.remytabardel.henripotier.services.database.BookDao;
 import com.remytabardel.henripotier.services.database.CartItemDao;
+import com.remytabardel.henripotier.utils.ToastUtils;
 
 import java.util.Iterator;
 import java.util.List;
@@ -23,13 +24,13 @@ public class ShoppingCart {
     private final int QUANTITY_LIMIT;
 
     private List<CartItem> mItems;
-    private int mCurrentItemsQuantity;
+    private int mCurrentItemsQuantity;//avoid compute quantity every time, we can keep value
     private CartItemDao mCartItemDao;
     private Object mMutex;//we need to check add and remove, cant use both at the same time
     private Context mContext;
 
     public ShoppingCart(Context context, CartItemDao cartItemDao, BookDao bookDao) {
-        QUANTITY_LIMIT = 2;//context.getResources().getInteger(R.integer.shopping_cart_quantity_limit);
+        QUANTITY_LIMIT = context.getResources().getInteger(R.integer.shopping_cart_quantity_limit);
         mContext = context;
         mCartItemDao = cartItemDao;
         mItems = cartItemDao.selectAll();
@@ -59,6 +60,10 @@ public class ShoppingCart {
                 mCurrentItemsQuantity += cartItem.getQuantity();
             }
         }
+    }
+
+    public boolean isCartFull() {
+        return mCurrentItemsQuantity == QUANTITY_LIMIT;
     }
 
     public List<CartItem> getItems() {
@@ -98,7 +103,7 @@ public class ShoppingCart {
                 }
                 //we exceed limit we can't add
                 else {
-                    Toast.makeText(mContext, mContext.getString(R.string.shopping_cart_exceed_limit, Integer.toString(QUANTITY_LIMIT)), Toast.LENGTH_SHORT).show();
+                    ToastUtils.show(mContext, mContext.getString(R.string.shopping_cart_exceed_limit, Integer.toString(QUANTITY_LIMIT)), Toast.LENGTH_SHORT);
                 }
             }
         }
@@ -128,6 +133,7 @@ public class ShoppingCart {
                 //we can remove item only if quandtity > 2, if want delete use deleteItem method
                 if (cartItem != null && cartItem.getQuantity() > 1) {
                     itemRemoved = true;
+                    mCurrentItemsQuantity -= 1;
 
                     cartItem.setQuantity(cartItem.getQuantity() - 1);
                     mCartItemDao.update(cartItem);
@@ -154,6 +160,7 @@ public class ShoppingCart {
 
                 if (cartItem != null) {
                     itemDeleted = true;
+                    mCurrentItemsQuantity -= cartItem.getQuantity();
                     mCartItemDao.delete(cartItem);
                     mItems.remove(cartItem);
                 }

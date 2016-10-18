@@ -26,8 +26,10 @@ import butterknife.ButterKnife;
  */
 
 public class CartFragment extends AbstractFragment {
-    @Inject ShoppingCart mShoppingCart;
-    @Inject ImageLoader mImageLoader;
+    @Inject
+    ShoppingCart mShoppingCart;
+    @Inject
+    ImageLoader mImageLoader;
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
@@ -35,17 +37,10 @@ public class CartFragment extends AbstractFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         ButterKnife.bind(this, view);
 
         return view;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main, menu);
     }
 
     @Override
@@ -60,7 +55,7 @@ public class CartFragment extends AbstractFragment {
     private void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        CartAdapter adapter = new CartAdapter(getContext(), mImageLoader, mShoppingCart.getItems());
+        CartAdapter adapter = new CartAdapter(getContext(), mShoppingCart, mImageLoader);
         mRecyclerView.setAdapter(adapter);
     }
 }

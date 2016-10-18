@@ -7,11 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
+import com.remytabardel.henripotier.activities.MainActivity;
 import com.remytabardel.henripotier.adapters.BookAdapter;
 import com.remytabardel.henripotier.services.cart.ShoppingCart;
 import com.remytabardel.henripotier.services.database.BookDao;
@@ -28,11 +30,15 @@ import butterknife.ButterKnife;
 
 public class BooksFragment extends AbstractFragment {
 
-    @Inject BookDao mBookDao;
-    @Inject ImageLoader mImageLoader;
-    @Inject ShoppingCart mShoppingCart;
+    @Inject
+    BookDao mBookDao;
+    @Inject
+    ImageLoader mImageLoader;
+    @Inject
+    ShoppingCart mShoppingCart;
 
-    @BindView(R.id.recyclerview) RecyclerView mRecyclerView;
+    @BindView(R.id.recyclerview)
+    RecyclerView mRecyclerView;
 
     @Nullable
     @Override
@@ -47,7 +53,20 @@ public class BooksFragment extends AbstractFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_fragment_books, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_cart) {
+            //we simulate click on cart menu
+            ((MainActivity) getActivity()).performNavigationClick(R.id.nav_cart);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

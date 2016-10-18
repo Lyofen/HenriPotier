@@ -5,12 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.models.CartItem;
+import com.remytabardel.henripotier.services.cart.ShoppingCart;
 import com.remytabardel.henripotier.services.image.ImageLoader;
+import com.remytabardel.henripotier.views.QuantitySelectorView;
 
 import java.util.List;
 
@@ -31,6 +34,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         TextView mTextViewPrice;
         @BindView(R.id.imageview_cover)
         ImageView mImageViewCover;
+        @BindView(R.id.quantityselectorview)
+        QuantitySelectorView mQuantitySelectorView;
+        @BindView(R.id.imagebutton_delete)
+        ImageButton mImageButtonDelete;
 
         public ViewHolder(View view) {
             super(view);
@@ -40,12 +47,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     private Context mContext;
     private ImageLoader mImageLoader;
+    private ShoppingCart mShoppingCart;
     private List<CartItem> mDataset;
 
-    public CartAdapter(Context context, ImageLoader imageLoader, List<CartItem> items) {
+    public CartAdapter(Context context, ShoppingCart shoppingCart, ImageLoader imageLoader) {
         mContext = context;
         mImageLoader = imageLoader;
-        mDataset = items;
+        mShoppingCart = shoppingCart;
+        mDataset = mShoppingCart.getItems();
     }
 
     @Override
@@ -64,7 +73,40 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.mTextViewTitle.setText(currentItem.getBook().getTitle());
         holder.mTextViewIsbn.setText(mContext.getString(R.string.fragment_cart_item_isbn, currentItem.getIsbn()));
         holder.mTextViewPrice.setText(mContext.getString(R.string.fragment_cart_item_price, Double.toString(currentItem.getBook().getPrice())));
+        holder.mQuantitySelectorView.setQuantity(currentItem.getQuantity());
 
+        setQuantitySelectorViewListeners(holder.mQuantitySelectorView, currentItem);
+        setButtomRemoveListener(holder.mImageButtonDelete, currentItem);
+    }
+
+    private void setButtomRemoveListener(ImageButton imageButtonRemove, final CartItem cartItem) {
+        imageButtonRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mShoppingCart.deleteItem(cartItem.getIsbn());
+                notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void setQuantitySelectorViewListeners(final QuantitySelectorView quantitySelectorView, final CartItem cartItem) {
+        quantitySelectorView.setOnClickMoreListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mShoppingCart.addItem(cartItem.getIsbn())) {
+                    quantitySelectorView.setQuantity(cartItem.getQuantity());
+                }
+            }
+        });
+
+        quantitySelectorView.setOnClickLessListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mShoppingCart.subtractItem(cartItem.getIsbn())) {
+                    quantitySelectorView.setQuantity(cartItem.getQuantity());
+                }
+            }
+        });
     }
 
     @Override
