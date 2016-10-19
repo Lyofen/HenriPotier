@@ -1,8 +1,10 @@
 package com.remytabardel.henripotier.activities;
 
+import android.support.design.widget.NavigationView;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.widget.FrameLayout;
 
@@ -21,6 +23,7 @@ import org.junit.runners.MethodSorters;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -48,7 +51,20 @@ public class MainActivityEspressoTest {
     @Test
     public void test_1_ensureTextChangesWork() {
 
-        onView(withId(R.id.action_cart)).perform(click());
+        mActivityRule.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivityRule.getActivity().performNavigationClick(R.id.nav_cart);
+
+            }
+        });
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //onView(withText(mActivityRule.getActivity().getString(R.string.nav_main_item_cart))).perform(click());
 
         android.support.v4.app.Fragment fragment = mActivityRule.getActivity().getSupportFragmentManager().findFragmentByTag("CURRENT_FRAGMENT");
         assertEquals(CartFragment.class.getName(), fragment.getClass().getName());
