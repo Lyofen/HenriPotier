@@ -7,4 +7,9 @@
     android:background="@drawable/bg_splash"
     tools:context="com.remytabardel.henripotier.activities.SplashActivity">
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateOnly="true" />
 </RelativeLayout>

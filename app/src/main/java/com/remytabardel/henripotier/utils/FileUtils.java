@@ -12,31 +12,19 @@ import java.io.OutputStream;
 
 public class FileUtils {
 
-    public static boolean copy(String inFile, String outFile) {
+    public static boolean copy(String inPath, String outPath) {
         boolean isOk = true;
-
-        try {
-            isOk = copy(new FileInputStream(new File(inFile)), outFile);
-        } catch (Exception e) {
-            isOk = false;
-        }
-
-        return isOk;
-    }
-
-    public static boolean copy(InputStream inputStream, String outFile) {
-        boolean isOk = true;
+        InputStream inputStream = null;
         OutputStream outputStream = null;
 
         try {
-            outputStream = new FileOutputStream(prepareToCreate(outFile));
+            inputStream = new FileInputStream(new File(inPath));
 
-            int read = 0;
-            byte[] bytes = new byte[1024];
+            File outFile = new File(outPath);
+            outFile.mkdirs();
 
-            while ((read = inputStream.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, read);
-            }
+            outputStream = new FileOutputStream(outFile);
+            isOk = copy(inputStream, outputStream);
         } catch (Exception e) {
             isOk = false;
         } finally {
@@ -47,14 +35,29 @@ public class FileUtils {
         return isOk;
     }
 
-    public static File prepareToCreate(String filename) {
-        File file = new File(filename);
-        if (file.exists()) {
-            file.delete();
-        } else {
-            file.getParentFile().mkdirs();
+    /**
+     * copy inputstream to outputstream
+     * IMPORTANT : you need to close streams yourself
+     *
+     * @param inputStream
+     * @param outputStream
+     * @return
+     * @throws Exception
+     */
+    public static boolean copy(InputStream inputStream, OutputStream outputStream) throws Exception {
+        boolean isOk = true;
+
+        try {
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        } catch (Exception e) {
+            isOk = false;
         }
 
-        return file;
+        return isOk;
     }
 }

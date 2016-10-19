@@ -48,6 +48,8 @@ public class BooksFragment extends AbstractFragment {
         View view = inflater.inflate(R.layout.fragment_books, container, false);
         ButterKnife.bind(this, view);
 
+        getActivity().setTitle(getString(R.string.fragment_books_title));
+
         return view;
     }
 

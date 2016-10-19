@@ -7,7 +7,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This menu is only visible in debug config."
+            android:textStyle="bold" />
+
+        <include layout="@layout/view_debug_separator" />
+
+        <TextView
+            android:id="@+id/textview_app_config"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/view_debug_separator" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Export database with current app data :" />
+
+        <Button
+            android:id="@+id/button_export_database"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Export database" />
+
+        <include layout="@layout/view_debug_separator" />
 
 
     </LinearLayout>

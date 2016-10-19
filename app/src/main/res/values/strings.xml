@@ -8,13 +8,21 @@
     <string name="action_settings">Settings</string>
 
     <!-- books fragment -->
+    <string name="fragment_books_title">Henri Potier Collection</string>
     <string name="fragment_books_item_price">%1s €</string>
 
     <!-- cart fragment -->
+    <string name="fragment_cart_title">Cart (%1d)</string>
     <string name="fragment_cart_item_isbn">isbn : %1s</string>
     <string name="fragment_cart_item_price">Unit price : %1s €</string>
     <string name="fragment_cart_empty_text">You\'re shopping cart is empty, look our collection !</string>
     <string name="fragment_cart_button_look">Look collection</string>
+
+    <!-- about fragment -->
+    <string name="fragment_about_title">About</string>
+
+    <!-- debug fragment -->
+    <string name="fragment_debug_title">Debug</string>
 
     <!-- ConnectionErrorDialog -->
     <string name="dialog_connection_error_retry">Retry</string>

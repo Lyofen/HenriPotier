@@ -29,10 +29,17 @@ public class Database {
         if (exportFolder == null)
             return false;
 
+        if (exportFolder.endsWith("/") == false)
+            exportFolder += "/";
+
         String inFilename = getPath();
-        String outFilename = Environment.getExternalStorageDirectory() + "/" + exportFolder + getFullName();
+        String outFilename = getExportDirectory() + exportFolder + getFullName();
 
         return FileUtils.copy(inFilename, outFilename);
+    }
+
+    public String getExportDirectory() {
+        return Environment.getExternalStorageDirectory() + "/";
     }
 
     public String getFullName() {

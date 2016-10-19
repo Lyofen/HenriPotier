@@ -60,6 +60,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         mCartAdapterListener = cartAdapterListener;
         //we notify on initialisation too
         mCartAdapterListener.onItemCountChanged(mDataset.size());
+        mCartAdapterListener.onTotalQuantityChanged(mShoppingCart.getTotalQuantity());
     }
 
     @Override
@@ -90,6 +91,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             public void onClick(View view) {
                 if (mShoppingCart.deleteItem(cartItem.getIsbn())) {
                     mCartAdapterListener.onItemCountChanged(mDataset.size());
+                    mCartAdapterListener.onTotalQuantityChanged(mShoppingCart.getTotalQuantity());
                     notifyDataSetChanged();
                 }
             }
@@ -102,6 +104,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             public void onClick(View view) {
                 if (mShoppingCart.addItem(cartItem.getIsbn())) {
                     quantitySelectorView.setQuantity(cartItem.getQuantity());
+                    mCartAdapterListener.onTotalQuantityChanged(mShoppingCart.getTotalQuantity());
                 }
             }
         });
@@ -111,6 +114,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             public void onClick(View view) {
                 if (mShoppingCart.subtractItem(cartItem.getIsbn())) {
                     quantitySelectorView.setQuantity(cartItem.getQuantity());
+                    mCartAdapterListener.onTotalQuantityChanged(mShoppingCart.getTotalQuantity());
                 }
             }
         });

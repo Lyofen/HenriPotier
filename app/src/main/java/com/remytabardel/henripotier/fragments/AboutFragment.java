@@ -23,6 +23,8 @@ public class AboutFragment extends AbstractFragment {
         View view = inflater.inflate(R.layout.fragment_about, container, false);
         ButterKnife.bind(this, view);
 
+        getActivity().setTitle(getString(R.string.fragment_about_title));
+
         return view;
     }
 

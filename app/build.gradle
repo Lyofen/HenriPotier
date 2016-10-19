@@ -10,21 +10,25 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        resConfigs ("en", "fr")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    packagingOptions {
+        exclude 'LICENSE.txt'
     }
-
     signingConfigs {
         release {
             storePassword 'henripjks'
             keyPassword 'henripjks'
             keyAlias 'henripalias'
             storeFile file('henripotierkeystore.jks')
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -36,21 +40,54 @@ def GLIDE_VERSION = '3.7.0'
 def DBFLOW_VERSION = "3.0.1"
 def LEAK_CANARY_VERSION = "1.4"
 def ROBOLECTRIC_VERSION = "3.1.2"
+def MOCKITO_VERSION = "1.9.5"
 def DAGGER_VERSION = "2.5"
+//tests
 def JUNIT_VERSION = "4.12"
+def ESPRESSO_VERSION = "2.2.2"
+
 def BUTTERKNIFE_VERSION = "8.4.0"
 def JOBQUEUE_VERSION = "2.0.0"
 def EVENTBUS_VERSION = "3.0.0"
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    configurations {
+        androidTestCompile.exclude module: 'support-annotations'//used for espresso
+        androidTestCompile.exclude group: 'com.android.support'//used for espresso
+    }
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:multidex:1.0.1'
 
     //**********************// TEST //**********************//
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    // UNIT TESTING
+    androidTestCompile "com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}"
+    androidTestCompile "com.android.support.test.espresso:espresso-contrib:${ESPRESSO_VERSION}"
     testCompile "junit:junit:${JUNIT_VERSION}"
+
+   /* testCompile(
+            'junit:junit:4.11',
+            'com.android.support:support-annotations:22.0.0',
+            'com.squareup.assertj:assertj-android:1.0.0',
+            'org.mockito:mockito-core:1.9.5',
+            'org.assertj:assertj-core:1.7.0'
+    )
+    testCompile'org.robolectric:robolectric:2.4'
+    // INTEGRATION TESTING
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.0',
+            'com.android.support.test.espresso:espresso-idling-resource:2.0',
+            'com.android.support.test:testing-support-lib:0.1',
+            'com.squareup.spoon:spoon-client:1.1.8')
+    androidTestCompile'com.android.support.test.espresso:espresso-contrib:2.0'*/
+   /* androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2')
+    testCompile("junit:junit:${JUNIT_VERSION}",
+            "org.mockito:mockito-core:${MOCKITO_VERSION}")
+    testCompile('com.squareup.assertj:assertj-android:1.1.1')
+    testCompile("org.robolectric:robolectric:${ROBOLECTRIC_VERSION}")
+            {
+                exclude group: 'commons-logging'
+                exclude group: 'org.apache.httpcomponents'
+            }*/
 
     //**********************// ANDROID SUPPORT //**********************//
     compile("com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}",
@@ -89,8 +126,8 @@ dependencies {
     //**********************// DEPENDENCIES INJECTION //**********************//
     compile "com.google.dagger:dagger:${DAGGER_VERSION}"
     apt "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
-    provided "javax.annotation:jsr250-api:1.0"
-    compile "javax.inject:javax.inject:1"
+    provided 'javax.annotation:jsr250-api:1.0'
+    compile 'javax.inject:javax.inject:1'
     testApt "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
 
     //**********************// DETECT MEMORY LEAK //**********************//
@@ -103,5 +140,4 @@ dependencies {
     compile("com.github.Raizlabs.DBFlow:dbflow-core:${DBFLOW_VERSION}",
             "com.github.Raizlabs.DBFlow:dbflow:${DBFLOW_VERSION}",
             "com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:${DBFLOW_VERSION}")
-
 }

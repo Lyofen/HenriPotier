@@ -62,6 +62,10 @@ public class ShoppingCart {
         }
     }
 
+    public int getTotalQuantity() {
+        return mCurrentItemsQuantity;
+    }
+
     public boolean isCartFull() {
         return mCurrentItemsQuantity == QUANTITY_LIMIT;
     }

@@ -70,9 +70,13 @@ public class CartFragment extends AbstractFragment implements CartAdapterListene
     }
 
     @OnClick(R.id.button_look_collection)
-    public void onClickButtonLookCollection(Button button)
-    {
+    public void onClickButtonLookCollection() {
         //we simulate click on books menu
         ((MainActivity) getActivity()).performNavigationClick(R.id.nav_books);
+    }
+
+    @Override
+    public void onTotalQuantityChanged(int totalQuantity) {
+        getActivity().setTitle(getString(R.string.fragment_cart_title, totalQuantity));
     }
 }

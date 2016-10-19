@@ -6,4 +6,6 @@ package com.remytabardel.henripotier.listeners;
 
 public interface CartAdapterListener {
     void onItemCountChanged(int count);
+
+    void onTotalQuantityChanged(int totalQuantity);
 }
