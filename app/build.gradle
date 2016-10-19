@@ -18,6 +18,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    signingConfigs {
+        release {
+            storePassword 'henripjks'
+            keyPassword 'henripjks'
+            keyAlias 'henripalias'
+            storeFile file('henripotierkeystore.jks')
+        }
+    }
 }
 
 def RETROFIT_VERSION = '2.0.1'

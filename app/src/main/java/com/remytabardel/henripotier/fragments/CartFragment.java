@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
@@ -69,7 +70,7 @@ public class CartFragment extends AbstractFragment implements CartAdapterListene
     }
 
     @OnClick(R.id.button_look_collection)
-    public void onClickButtonLookCollection()
+    public void onClickButtonLookCollection(Button button)
     {
         //we simulate click on books menu
         ((MainActivity) getActivity()).performNavigationClick(R.id.nav_books);

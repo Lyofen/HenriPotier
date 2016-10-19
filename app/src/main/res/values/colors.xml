@@ -7,6 +7,7 @@
     <color name="colorLightBackground">#FAFAFA</color>
     <!-- view colors -->
     <color name="colorShapeGradientGray">#EEEEEE</color>
-    <color name="colorShapeCirclePriceBackground">#88FFFFFF</color>
+    <color name="colorShapeRectPriceBorder">#88000000</color>
+    <color name="colorShapeRectPriceBackground">#88FFFFFF</color>
 
 </resources>

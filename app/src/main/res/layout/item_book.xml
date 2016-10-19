@@ -35,8 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/imageview_cover"
-            android:background="@drawable/shape_circle_price"
-            android:padding="8dp"
+            android:background="@drawable/shape_rect_price"
+            android:padding="4dp"
             android:textColor="@android:color/black" />
 
         <com.remytabardel.henripotier.views.AddToCartView
