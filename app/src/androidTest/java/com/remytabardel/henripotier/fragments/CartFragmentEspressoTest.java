@@ -1,4 +1,4 @@
-package com.remytabardel.henripotier.activities;
+package com.remytabardel.henripotier.fragments;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.v4.app.Fragment;
@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.remytabardel.henripotier.R;
+import com.remytabardel.henripotier.activities.MainActivity;
 import com.remytabardel.henripotier.fragments.CartFragment;
 
 import org.junit.After;

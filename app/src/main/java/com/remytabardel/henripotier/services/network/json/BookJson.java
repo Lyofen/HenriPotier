@@ -1,70 +1,67 @@
 package com.remytabardel.henripotier.services.network.json;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Remy Tabardel
  *         Used for HenriPotierApi
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BookJson {
-    @SerializedName("isbn")
-    private String mIsbn;
-    @SerializedName("title")
-    private String mTitle;
-    @SerializedName("price")
-    private double mPrice;
-    @SerializedName("cover")
-    private String mCover;
+    private String isbn;
+    private String title;
+    private double price;
+    private String cover;
 
     public BookJson() {
     }
 
     public BookJson(String isbn, String title, double price, String cover) {
-        this.mIsbn = isbn;
-        this.mTitle = title;
-        this.mPrice = price;
-        this.mCover = cover;
+        this.isbn = isbn;
+        this.title = title;
+        this.price = price;
+        this.cover = cover;
     }
 
     public String getIsbn() {
-        return mIsbn;
+        return isbn;
     }
 
-    public void setIsbn(String mIsbn) {
-        this.mIsbn = mIsbn;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
-    public void setTitle(String mTitle) {
-        this.mTitle = mTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public double getPrice() {
-        return mPrice;
+        return price;
     }
 
-    public void setPrice(double mPrice) {
-        this.mPrice = mPrice;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getCover() {
-        return mCover;
+        return cover;
     }
 
-    public void setCover(String mCover) {
-        this.mCover = mCover;
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     @Override public String toString() {
         return "BookJson{" +
-                "mIsbn='" + mIsbn + '\'' +
-                ", mTitle='" + mTitle + '\'' +
-                ", mPrice=" + mPrice +
-                ", mCover='" + mCover + '\'' +
+                "isbn='" + isbn + '\'' +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", cover='" + cover + '\'' +
                 '}';
     }
 }

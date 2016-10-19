@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/linear_empty_view"
+        android:id="@+id/view_full"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_purchase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_cart_button_purchase"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/button_purchase"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/view_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -20,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="@string/fragment_cart_empty_text" />
+            android:text="@string/fragment_cart_empty_text"/>
 
         <Button
             android:id="@+id/button_look_collection"
@@ -28,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/fragment_cart_button_look"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"/>
 
     </LinearLayout>
 </RelativeLayout>

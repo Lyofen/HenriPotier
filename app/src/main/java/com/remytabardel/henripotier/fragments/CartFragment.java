@@ -1,5 +1,6 @@
 package com.remytabardel.henripotier.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,15 +8,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.activities.MainActivity;
+import com.remytabardel.henripotier.activities.OrderSummaryActivity;
 import com.remytabardel.henripotier.adapters.CartAdapter;
+import com.remytabardel.henripotier.jobs.CommercialOfferJob;
 import com.remytabardel.henripotier.listeners.CartAdapterListener;
 import com.remytabardel.henripotier.services.cart.ShoppingCart;
+import com.remytabardel.henripotier.services.event.EventPublisher;
 import com.remytabardel.henripotier.services.image.ImageLoader;
+import com.remytabardel.henripotier.services.job.JobScheduler;
+import com.remytabardel.henripotier.services.network.json.CommercialOffersJson;
 
 import javax.inject.Inject;
 
@@ -32,9 +37,13 @@ public class CartFragment extends AbstractFragment implements CartAdapterListene
     ShoppingCart mShoppingCart;
     @Inject
     ImageLoader mImageLoader;
+    @Inject
+    JobScheduler mJobScheduler;
 
-    @BindView(R.id.linear_empty_view)
+    @BindView(R.id.view_empty)
     View mEmptyView;
+    @BindView(R.id.view_full)
+    View mFullView;
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
 
@@ -65,8 +74,12 @@ public class CartFragment extends AbstractFragment implements CartAdapterListene
 
     @Override
     public void onItemCountChanged(int count) {
+        boolean isListEmpty = (count < 1);//== 0 should be ok but.. security
+
         //we show empty view if adapter is empty
-        mEmptyView.setVisibility(count > 0 ? View.GONE : View.VISIBLE);
+        mEmptyView.setVisibility(isListEmpty ? View.VISIBLE : View.GONE);
+        //we need full view visibility to render button under recyclerview
+        mFullView.setVisibility(isListEmpty ? View.GONE : View.VISIBLE);
     }
 
     @OnClick(R.id.button_look_collection)
@@ -78,5 +91,11 @@ public class CartFragment extends AbstractFragment implements CartAdapterListene
     @Override
     public void onTotalQuantityChanged(int totalQuantity) {
         getActivity().setTitle(getString(R.string.fragment_cart_title, totalQuantity));
+    }
+
+    @OnClick(R.id.button_purchase)
+    public void onClickButtonPurchase() {
+        startActivity(new Intent(getActivity(), OrderSummaryActivity.class));
+        mJobScheduler.addInBackground(new CommercialOfferJob());
     }
 }

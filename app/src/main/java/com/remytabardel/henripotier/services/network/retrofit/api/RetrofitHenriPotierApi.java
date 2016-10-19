@@ -1,7 +1,9 @@
 package com.remytabardel.henripotier.services.network.retrofit.api;
 
+import com.remytabardel.henripotier.models.CartItem;
 import com.remytabardel.henripotier.services.network.HenriPotierApi;
 import com.remytabardel.henripotier.services.network.json.BookJson;
+import com.remytabardel.henripotier.services.network.json.CommercialOffersJson;
 import com.remytabardel.henripotier.services.network.retrofit.calls.RetrofitHenriPotierCalls;
 
 import java.util.List;
@@ -23,5 +25,15 @@ public class RetrofitHenriPotierApi extends AbstractRetrofitApi<RetrofitHenriPot
      */
     @Override public List<BookJson> getBooks() {
         return execute(getCalls().getBooks());
+    }
+
+    @Override public CommercialOffersJson getCommercialOffers(List<CartItem> items) {
+        String listIsbn = items.get(0).getIsbn();
+
+        for (int i = 1; i < items.size(); i++) {
+            listIsbn += HenriPotierApi.ISBN_SEPARATOR + items.get(i).getIsbn();
+        }
+
+        return execute(getCalls().getCommercialOffers(listIsbn));
     }
 }
