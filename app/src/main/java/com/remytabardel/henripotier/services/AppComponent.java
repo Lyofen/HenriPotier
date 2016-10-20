@@ -1,6 +1,6 @@
 package com.remytabardel.henripotier.services;
 
-import com.remytabardel.henripotier.activities.CartSummaryActivity;
+import com.remytabardel.henripotier.activities.OrderSummaryActivity;
 import com.remytabardel.henripotier.activities.SplashActivity;
 import com.remytabardel.henripotier.dialogs.ConnectionErrorDialog;
 import com.remytabardel.henripotier.fragments.BooksFragment;
@@ -46,5 +46,5 @@ public interface AppComponent {
 
     void inject(GetBestOfferJob injectedClass);
 
-    void inject(CartSummaryActivity inhectedClass);
+    void inject(OrderSummaryActivity inhectedClass);
 }

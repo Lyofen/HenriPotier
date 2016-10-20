@@ -7,11 +7,18 @@ import com.birbit.android.jobqueue.Job;
 import com.birbit.android.jobqueue.Params;
 import com.birbit.android.jobqueue.RetryConstraint;
 import com.remytabardel.henripotier.MyApplication;
-import com.remytabardel.henripotier.events.GetCartSummaryEvent;
+import com.remytabardel.henripotier.events.GetBestOfferEvent;
+import com.remytabardel.henripotier.models.Offer;
 import com.remytabardel.henripotier.services.cart.ShoppingCart;
+import com.remytabardel.henripotier.services.event.EventPublisher;
 import com.remytabardel.henripotier.services.job.jobqueue.Priority;
 import com.remytabardel.henripotier.services.network.HenriPotierApi;
 import com.remytabardel.henripotier.services.network.json.CommercialOffersJson;
+import com.remytabardel.henripotier.services.network.json.OfferJson;
+import com.remytabardel.henripotier.utils.LogUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,6 +31,7 @@ public class GetBestOfferJob extends Job {
     ShoppingCart mShoppingCart;
     @Inject
     HenriPotierApi mHenriPotierApi;
+    @Inject EventPublisher mEventPublisher;
 
     public GetBestOfferJob() {
         //we dont use requireNetwork because we want handle exception
@@ -36,13 +44,13 @@ public class GetBestOfferJob extends Job {
      * we need to post event for each exception and treat it in CartSummaryActivity
      */
     private class GetBestOfferException extends Exception {
-        private final GetCartSummaryEvent mGetCartSummaryEvent;
+        private final GetBestOfferEvent mGetCartSummaryEvent;
 
-        public GetBestOfferException(GetCartSummaryEvent getCartSummaryEvent) {
+        public GetBestOfferException(GetBestOfferEvent getCartSummaryEvent) {
             mGetCartSummaryEvent = getCartSummaryEvent;
         }
 
-        public GetCartSummaryEvent getEvent() {
+        public GetBestOfferEvent getEvent() {
             return mGetCartSummaryEvent;
         }
     }
@@ -54,14 +62,65 @@ public class GetBestOfferJob extends Job {
 
     @Override
     public void onRun() throws Throwable {
-        CommercialOffersJson commercialOffersJson = mHenriPotierApi.getCommercialOffers(mShoppingCart.getItems());
+        List<OfferJson> jsonOffers = recoverJsonOffers();
 
+        //we dont use json classes directly because api , attribut.. can change easily, not models
+        List<Offer> offers = transformJsonToModels(jsonOffers);
+
+        Offer bestOffer = selectBestOffer(offers);
+
+        mEventPublisher.post(new GetBestOfferEvent(GetBestOfferEvent.OFFER_RESULT_OK, bestOffer));
     }
 
+    private Offer selectBestOffer(List<Offer> offers) {
+        float bestDiscount = 0;
+        Offer bestOffer = null;
+
+        for (Offer offer : offers) {
+            float currentDiscount = offer.getDiscount();
+
+            if (currentDiscount > bestDiscount) {
+                bestOffer = offer;
+            }
+        }
+
+        return bestOffer;
+    }
+
+    private List<Offer> transformJsonToModels(List<OfferJson> jsonOffers) {
+        List<Offer> modelOffers = new ArrayList<>();
+
+        for (OfferJson offerJson : jsonOffers) {
+            modelOffers.add(new Offer(offerJson, mShoppingCart.getAmount()));
+        }
+
+        return modelOffers;
+    }
+
+    private List<OfferJson> recoverJsonOffers() throws Throwable {
+        CommercialOffersJson commercialOffersJson = mHenriPotierApi.getCommercialOffers(mShoppingCart.getItems());
+
+        //we consider here it is forced to have an offer
+        if (commercialOffersJson == null || commercialOffersJson.getOffers().isEmpty()) {
+            throw new GetBestOfferException(new GetBestOfferEvent(GetBestOfferEvent.OFFER_RESULT_ERR_INTERNET));
+        }
+
+        return commercialOffersJson.getOffers();
+    }
 
     @Override
     protected void onCancel(int cancelReason, @Nullable Throwable throwable) {
+        GetBestOfferEvent getBestOfferEvent;
 
+        //if we known exception, we recover event
+        if (throwable instanceof GetBestOfferException) {
+            getBestOfferEvent = ((GetBestOfferException) throwable).getEvent();
+        } else {
+            LogUtils.e("unknown error during GetBestOfferJob", throwable);
+            getBestOfferEvent = new GetBestOfferEvent(GetBestOfferEvent.OFFER_RESULT_ERR_UNKNOWN);
+        }
+
+        mEventPublisher.post(getBestOfferEvent);
     }
 
     @Override

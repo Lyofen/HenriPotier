@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
-import com.remytabardel.henripotier.activities.CartSummaryActivity;
+import com.remytabardel.henripotier.activities.OrderSummaryActivity;
 import com.remytabardel.henripotier.activities.MainActivity;
 import com.remytabardel.henripotier.adapters.CartAdapter;
 import com.remytabardel.henripotier.listeners.CartAdapterListener;
@@ -89,6 +89,6 @@ public class CartFragment extends AbstractFragment implements CartAdapterListene
 
     @OnClick(R.id.button_purchase)
     public void onClickButtonPurchase() {
-        startActivity(new Intent(getActivity(), CartSummaryActivity.class));
+        startActivity(new Intent(getActivity(), OrderSummaryActivity.class));
     }
 }

@@ -11,13 +11,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class OfferJson {
 
     private String type;
-    private double value;
-    private double sliceValue;
+    private float value;
+    private float sliceValue;
 
     public OfferJson() {
     }
 
-    public OfferJson(String type, double value, double sliceValue) {
+    public OfferJson(String type, float value, float sliceValue) {
         this.type = type;
         this.value = value;
         this.sliceValue = sliceValue;
@@ -31,19 +31,19 @@ public class OfferJson {
         this.type = type;
     }
 
-    public double getValue() {
+    public float getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(float value) {
         this.value = value;
     }
 
-    public double getSliceValue() {
+    public float getSliceValue() {
         return sliceValue;
     }
 
-    public void setSliceValue(double sliceValue) {
+    public void setSliceValue(float sliceValue) {
         this.sliceValue = sliceValue;
     }
 }

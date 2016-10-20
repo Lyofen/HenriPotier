@@ -9,12 +9,12 @@
 
     <!-- books fragment -->
     <string name="fragment_books_title">Henri Potier Collection</string>
-    <string name="fragment_books_item_price">%1s €</string>
+    <string name="item_book_price">%1$f €</string>
 
     <!-- cart fragment -->
-    <string name="fragment_cart_title">Cart (%1d)</string>
-    <string name="fragment_cart_item_isbn">isbn : %1s</string>
-    <string name="fragment_cart_item_price">Unit price : %1s €</string>
+    <string name="fragment_cart_title">Cart (%1$d)</string>
+    <string name="item_cart_isbn">isbn : %1$s</string>
+    <string name="item_cart_price">Unit price : %1$f €</string>
     <string name="fragment_cart_empty_text">You\'re shopping cart is empty, look our collection !</string>
     <string name="fragment_cart_button_look">Look collection</string>
     <string name="fragment_cart_button_purchase">Purchase</string>
@@ -27,6 +27,14 @@
 
     <!-- order summary activity -->
     <string name="activity_order_summary_title">Order summary</string>
+    <string name="activity_order_summary_text_err">Error during recovering summary. Please check you\'re internet connection.</string>
+    <string name="activity_order_summary_button_retry">Retry</string>
+    <string name="activity_order_summary_button_return">Return</string>
+    <string name="item_order_description">%1$d X %2$f €</string>
+    <string name="item_order_total_price">%1$f €</string>
+    <string name="item_order_footer_total_price">Total price : %1f €</string>
+    <string name="item_order_footer_discount">Discount : %1$f €</string>
+    <string name="item_order_footer_final_price">Final price : %1$f €</string>
 
     <!-- ConnectionErrorDialog -->
     <string name="dialog_connection_error_retry">Retry</string>
@@ -39,5 +47,5 @@
     <string name="nav_main_item_debug">Debug</string>
 
     <!-- shopping cart -->
-    <string name="shopping_cart_exceed_limit">You can\'t exceed %1s books in cart</string>
+    <string name="shopping_cart_exceed_limit">You can\'t exceed %1$s books in cart</string>
 </resources>

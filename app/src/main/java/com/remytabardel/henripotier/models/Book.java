@@ -20,7 +20,7 @@ public class Book extends BaseModel {
     @Column
     String title;
     @Column
-    double price;
+    float price;
     @Column
     String cover;
     @Column
@@ -31,7 +31,7 @@ public class Book extends BaseModel {
     public Book() {
     }
 
-    public Book(String isbn, String title, double price, String cover, int num) {
+    public Book(String isbn, String title, float price, String cover, int num) {
         this.isbn = isbn;
         this.title = title;
         this.price = price;
@@ -47,7 +47,7 @@ public class Book extends BaseModel {
         return title;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 

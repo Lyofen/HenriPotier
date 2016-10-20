@@ -25,11 +25,12 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop" />
-        <activity android:name=".activities.CartSummaryActivity"
-                  android:parentActivityName="com.remytabardel.henripotier.activities.MainActivity">
-        </activity>
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activities.OrderSummaryActivity"
+            android:parentActivityName="com.remytabardel.henripotier.activities.MainActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

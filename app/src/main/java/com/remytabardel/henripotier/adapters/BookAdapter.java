@@ -69,7 +69,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
         mImageLoader.load(currentBook.getCover(), holder.mImageViewCover);
         holder.mTextViewTitle.setText(currentBook.getTitle());
-        holder.mTextViewPrice.setText(mContext.getString(R.string.fragment_books_item_price, Double.toString(currentBook.getPrice())));
+        holder.mTextViewPrice.setText(mContext.getString(R.string.item_book_price, currentBook.getPrice()));
         setAddToCartView(holder.mAddToCartView, currentBook);
 
         //set theme colors

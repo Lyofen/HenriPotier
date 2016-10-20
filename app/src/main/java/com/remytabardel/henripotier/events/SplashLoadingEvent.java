@@ -22,7 +22,7 @@ public class SplashLoadingEvent {
         mLoadingResult = loadingResult;
     }
 
-    public int getLoadingResult() {
+    public @LoadingResult int getResult() {
         return mLoadingResult;
     }
 }

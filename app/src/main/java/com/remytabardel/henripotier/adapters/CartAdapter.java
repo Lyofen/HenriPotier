@@ -77,8 +77,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         mImageLoader.load(currentItem.getBook().getCover(), holder.mImageViewCover);
         holder.mTextViewTitle.setText(currentItem.getBook().getTitle());
-        holder.mTextViewIsbn.setText(mContext.getString(R.string.fragment_cart_item_isbn, currentItem.getIsbn()));
-        holder.mTextViewPrice.setText(mContext.getString(R.string.fragment_cart_item_price, Double.toString(currentItem.getBook().getPrice())));
+        holder.mTextViewIsbn.setText(mContext.getString(R.string.item_cart_isbn, currentItem.getIsbn()));
+        holder.mTextViewPrice.setText(mContext.getString(R.string.item_cart_price, currentItem.getBook().getPrice()));
         holder.mQuantitySelectorView.setQuantity(currentItem.getQuantity());
 
         setQuantitySelectorViewListeners(holder.mQuantitySelectorView, currentItem);

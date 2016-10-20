@@ -63,7 +63,7 @@ public class SplashActivity extends AbstractActivity implements ConnectionErrorL
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRecoverBooksEvent(SplashLoadingEvent event) {
-        switch (event.getLoadingResult()) {
+        switch (event.getResult()) {
             case SplashLoadingEvent.LOADING_RESULT_OK:
                 startActivity(new Intent(this, MainActivity.class));
                 break;

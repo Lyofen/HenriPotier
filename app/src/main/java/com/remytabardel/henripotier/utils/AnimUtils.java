@@ -42,6 +42,7 @@ public class AnimUtils {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         viewToHide.setVisibility(View.GONE);
+                        viewToHide.setAlpha(1f);
                     }
                 });
     }

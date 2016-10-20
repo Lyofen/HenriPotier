@@ -29,6 +29,8 @@ import javax.inject.Inject;
  */
 
 public class SplashLoadingJob extends Job {
+    public final static String BONUS_BOOK_ISBN = "le-dev-android";
+
     @Inject HenriPotierApi mHenriPotierApi;
     @Inject BookDao mBookDao;
     @Inject EventPublisher mEventPublisher;
@@ -80,7 +82,7 @@ public class SplashLoadingJob extends Job {
     }
 
     private void addBonusBookData(List<BookJson> jsonBooks) {
-        jsonBooks.add(new BookJson("le-dev-android",
+        jsonBooks.add(new BookJson(BONUS_BOOK_ISBN,
                 "Rémy Tabardel",
                 45,
                 "android.resource://com.remytabardel.henripotier/drawable/bg_splash"));
@@ -94,7 +96,7 @@ public class SplashLoadingJob extends Job {
         //we need to delete all old books to replace with new data
         mBookDao.deleteAll();
 
-        for (int i = 0; i < jsonBooks.size();i++) {
+        for (int i = 0; i < jsonBooks.size(); i++) {
             BookJson json = jsonBooks.get(i);
 
             //we recover cover's palette to personnalize books list

@@ -11,13 +11,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class BookJson {
     private String isbn;
     private String title;
-    private double price;
+    private float price;
     private String cover;
 
     public BookJson() {
     }
 
-    public BookJson(String isbn, String title, double price, String cover) {
+    public BookJson(String isbn, String title, float price, String cover) {
         this.isbn = isbn;
         this.title = title;
         this.price = price;
@@ -40,11 +40,11 @@ public class BookJson {
         this.title = title;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
