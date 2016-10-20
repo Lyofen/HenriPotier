@@ -16,7 +16,7 @@ public class SplashLoadingEvent {
     public static final int LOADING_RESULT_ERR_INSERT = 3;
     public static final int LOADING_RESULT_ERR_UNKNOWN = 4;
 
-    private final int mLoadingResult;
+    private int mLoadingResult;
 
     public SplashLoadingEvent(@LoadingResult int loadingResult) {
         mLoadingResult = loadingResult;

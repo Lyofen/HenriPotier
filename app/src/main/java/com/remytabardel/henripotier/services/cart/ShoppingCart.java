@@ -2,15 +2,19 @@ package com.remytabardel.henripotier.services.cart;
 
 import android.content.Context;
 import android.support.annotation.MainThread;
+import android.support.annotation.WorkerThread;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.models.CartItem;
+import com.remytabardel.henripotier.models.CartSummary;
 import com.remytabardel.henripotier.services.database.BookDao;
 import com.remytabardel.henripotier.services.database.CartItemDao;
+import com.remytabardel.henripotier.services.network.json.OfferJson;
 import com.remytabardel.henripotier.utils.ToastUtils;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -188,5 +192,34 @@ public class ShoppingCart {
         }
 
         return null;
+    }
+
+    public double getTotalCartPrice() {
+        double price = 0.0;
+
+        for (CartItem item : mItems) {
+            price += item.getQuantity() * item.getBook().getPrice();
+        }
+
+        return price;
+    }
+
+    /**
+     * use commercials offers to compute best cart price
+     *
+     * @param offers
+     * @return
+     */
+    @WorkerThread
+    public CartSummary getSummary(List<OfferJson> offers) {
+
+        double totalCartPrice = getTotalCartPrice();
+        int indexBestOffer = -1;
+
+        for (OfferJson offer : offers) {
+
+        }
+
+        return new CartSummary("offertype", 1, 2, (ArrayList) new ArrayList<>(mItems).clone());
     }
 }

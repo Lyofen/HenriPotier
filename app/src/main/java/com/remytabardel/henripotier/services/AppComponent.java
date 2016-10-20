@@ -1,11 +1,12 @@
 package com.remytabardel.henripotier.services;
 
+import com.remytabardel.henripotier.activities.CartSummaryActivity;
 import com.remytabardel.henripotier.activities.SplashActivity;
 import com.remytabardel.henripotier.dialogs.ConnectionErrorDialog;
 import com.remytabardel.henripotier.fragments.BooksFragment;
 import com.remytabardel.henripotier.fragments.CartFragment;
 import com.remytabardel.henripotier.fragments.DebugFragment;
-import com.remytabardel.henripotier.jobs.CommercialOfferJob;
+import com.remytabardel.henripotier.jobs.GetBestOfferJob;
 import com.remytabardel.henripotier.jobs.SplashLoadingJob;
 import com.remytabardel.henripotier.services.cart.CartModule;
 import com.remytabardel.henripotier.services.database.DatabaseModule;
@@ -43,5 +44,7 @@ public interface AppComponent {
 
     void inject(DebugFragment injectedClass);
 
-    void inject(CommercialOfferJob injectedClass);
+    void inject(GetBestOfferJob injectedClass);
+
+    void inject(CartSummaryActivity inhectedClass);
 }

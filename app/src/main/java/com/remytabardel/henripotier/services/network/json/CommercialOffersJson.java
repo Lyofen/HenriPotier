@@ -9,7 +9,6 @@ import java.util.List;
  * @author Remy Tabardel
  *         Used for HenriPotierApi
  */
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CommercialOffersJson {
 

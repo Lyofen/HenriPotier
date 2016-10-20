@@ -15,7 +15,7 @@ import java.util.Calendar;
  */
 
 @Table(database = Database.class)
-public class CartItem extends BaseModel {
+public class CartItem extends BaseModel implements Cloneable {
     @PrimaryKey
     String isbn;
     @Column
@@ -29,9 +29,15 @@ public class CartItem extends BaseModel {
     }
 
     public CartItem(String isbn, int quantity) {
+        this(isbn, quantity, Calendar.getInstance().getTimeInMillis());
         this.isbn = isbn;
         this.quantity = quantity;
-        this.addedTime = Calendar.getInstance().getTimeInMillis();
+    }
+
+    public CartItem(String isbn, int quantity, long addedTime) {
+        this.isbn = isbn;
+        this.quantity = quantity;
+        this.addedTime = addedTime;
     }
 
     public String getIsbn() {
@@ -68,5 +74,10 @@ public class CartItem extends BaseModel {
         CartItem cartItem = (CartItem) o;
 
         return isbn.equals(cartItem.isbn);
+    }
+
+    @Override
+    protected CartItem clone() throws CloneNotSupportedException {
+        return new CartItem(isbn, quantity, addedTime);
     }
 }

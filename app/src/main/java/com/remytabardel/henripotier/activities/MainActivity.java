@@ -50,7 +50,8 @@ public class MainActivity extends AbstractActivity
 
         //we set the first fragment only on the first onCreate
         if (savedInstanceState == null) {
-            replaceFragment(new BooksFragment(), FRAGMENT_CONTAINER_ID);
+            //we perform click to set first screen and set menu books checked
+            performNavigationClick(R.id.nav_books);
         }
     }
 

@@ -11,16 +11,12 @@ import android.view.ViewGroup;
 
 import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
+import com.remytabardel.henripotier.activities.CartSummaryActivity;
 import com.remytabardel.henripotier.activities.MainActivity;
-import com.remytabardel.henripotier.activities.OrderSummaryActivity;
 import com.remytabardel.henripotier.adapters.CartAdapter;
-import com.remytabardel.henripotier.jobs.CommercialOfferJob;
 import com.remytabardel.henripotier.listeners.CartAdapterListener;
 import com.remytabardel.henripotier.services.cart.ShoppingCart;
-import com.remytabardel.henripotier.services.event.EventPublisher;
 import com.remytabardel.henripotier.services.image.ImageLoader;
-import com.remytabardel.henripotier.services.job.JobScheduler;
-import com.remytabardel.henripotier.services.network.json.CommercialOffersJson;
 
 import javax.inject.Inject;
 
@@ -37,8 +33,6 @@ public class CartFragment extends AbstractFragment implements CartAdapterListene
     ShoppingCart mShoppingCart;
     @Inject
     ImageLoader mImageLoader;
-    @Inject
-    JobScheduler mJobScheduler;
 
     @BindView(R.id.view_empty)
     View mEmptyView;
@@ -95,7 +89,6 @@ public class CartFragment extends AbstractFragment implements CartAdapterListene
 
     @OnClick(R.id.button_purchase)
     public void onClickButtonPurchase() {
-        startActivity(new Intent(getActivity(), OrderSummaryActivity.class));
-        mJobScheduler.addInBackground(new CommercialOfferJob());
+        startActivity(new Intent(getActivity(), CartSummaryActivity.class));
     }
 }
