@@ -43,16 +43,14 @@ public class Offer {
     float amount;
     float discount;
 
-    public Offer() {
-        //default constructor used for fake offer when only remy tabardel book is in cart
-        //so we put random type, no matter
-        type = TYPE.MINUS;
+    public Offer(OfferJson offerJson, float amount) {
+        this(TYPE.getFromJson(offerJson.getType()), offerJson.getValue(), offerJson.getSliceValue(), amount);
     }
 
-    public Offer(OfferJson offerJson, float amount) {
-        type = TYPE.getFromJson(offerJson.getType());
-        value = offerJson.getValue();
-        sliceValue = offerJson.getSliceValue();
+    public Offer(TYPE type, float value, float sliceValue, float amount) {
+        this.type = type;
+        this.value = value;
+        this.sliceValue = sliceValue;
         computeDiscount(amount);
     }
 

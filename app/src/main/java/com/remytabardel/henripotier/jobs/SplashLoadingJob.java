@@ -73,14 +73,14 @@ public class SplashLoadingJob extends Job {
     public void onRun() throws Throwable {
         List<BookJson> jsonBooks = recoverJsonBooks();
 
-        LogUtils.d("HenriPotierApi.getBooks return " + jsonBooks.size() + " books");
+        LogUtils.i("HenriPotierApi.getBooks return " + jsonBooks.size() + " books");
 
         //i need to sell myself...
         addBonusBookData(jsonBooks);
 
         saveJsonInDatabase(jsonBooks);
 
-        LogUtils.d("books insertBook in database successfull");
+        LogUtils.i("books insertBook in database successfull");
 
         //everything is ok, we can continue in SplashActivity
         mEventPublisher.post(new SplashLoadingEvent(SplashLoadingEvent.LOADING_RESULT_OK));

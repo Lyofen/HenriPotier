@@ -1,9 +1,10 @@
 package com.remytabardel.henripotier.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.remytabardel.henripotier.BuildConfig;
 import com.remytabardel.henripotier.R;
@@ -18,6 +20,8 @@ import com.remytabardel.henripotier.fragments.AboutFragment;
 import com.remytabardel.henripotier.fragments.BooksFragment;
 import com.remytabardel.henripotier.fragments.CartFragment;
 import com.remytabardel.henripotier.fragments.DebugFragment;
+import com.remytabardel.henripotier.utils.LogUtils;
+import com.remytabardel.henripotier.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,14 +35,10 @@ public class MainActivity extends AbstractActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
-    @BindView(R.id.nav_view)
-    NavigationView mNavigationView;
-    @BindView(R.id.fab)
-    FloatingActionButton mFloatingActionButton;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.nav_view) NavigationView mNavigationView;
+    @BindView(R.id.fab) FloatingActionButton mFloatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +82,18 @@ public class MainActivity extends AbstractActivity
 
     @OnClick(R.id.fab)
     public void onClickFloatingButton(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"remytabardel@live.fr"});
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            LogUtils.i("Email activity launched");
+        } catch (Exception e) {
+            LogUtils.e("Impossible to launch activity email", e);
+            ToastUtils.show(this, R.string.activity_main_err_mail, Toast.LENGTH_SHORT);
+        }
     }
 
     @Override
@@ -105,9 +115,6 @@ public class MainActivity extends AbstractActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        //we show floating button only on books fragment
-        setFloatingButtonVisibility(item.getItemId());
-
         switch (item.getItemId()) {
             case R.id.nav_books:
                 replaceFragment(new BooksFragment(), FRAGMENT_CONTAINER_ID);
@@ -124,6 +131,9 @@ public class MainActivity extends AbstractActivity
             default:
                 break;
         }
+
+        //we show floating button only on books fragment
+        setFloatingButtonVisibility(item.getItemId());
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

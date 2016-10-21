@@ -20,12 +20,12 @@ public class BookTest {
     }
 
     @Test
-    public void should_return_true_when_objects_are_equals() {
+    public void equals_should_return_true_when_isbn_are_equals() {
         assertEquals(true, mBook1.equals(mBook2));
     }
 
     @Test
-    public void should_return_false_when_objects_are_differents() {
+    public void equals_should_return_false_when_isbn_are_differents() {
         assertEquals(false, mBook1.equals(mBook3));
     }
 }

@@ -55,7 +55,7 @@ public class BooksFragment extends AbstractFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_fragment_books, menu);
+        inflater.inflate(R.menu.menu_books, menu);
     }
 
     @Override

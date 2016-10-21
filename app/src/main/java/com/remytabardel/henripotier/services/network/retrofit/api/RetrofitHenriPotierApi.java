@@ -35,6 +35,7 @@ public class RetrofitHenriPotierApi extends AbstractRetrofitApi<RetrofitHenriPot
     @Override public CommercialOffersJson getCommercialOffers(List<CartItem> items) {
         String listIsbn = "";
 
+        //loop on cartItem is enough because we need to add distinct isbn, dont need to loop with quantity
         for (int i = 0; i < items.size(); i++) {
             //i'm not sure api like me..
             if (items.get(i).getIsbn().equals(SplashLoadingJob.BONUS_BOOK_ISBN) == false) {

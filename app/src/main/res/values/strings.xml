@@ -5,10 +5,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <!-- activity main -->
+    <string name="activity_main_err_mail">There is no email client installed</string>
 
     <!-- books fragment -->
     <string name="fragment_books_title">Henri Potier Collection</string>
+    <string name="menu_books_action_cart">Cart</string>
     <string name="item_book_price">%1$.2f €</string>
 
     <!-- cart fragment -->
@@ -62,6 +64,9 @@
         <item>AndroidPriorityJobqueue : https://github.com/path/android-priority-jobqueue</item>
         <item>DBFlow : https://github.com/Raizlabs/DBFlow</item>
         <item>Jackson : https://github.com/FasterXML/jackson</item>
+        <item>Support Palette : https://developer.android.com/reference/android/support/v7/graphics/Palette.html</item>
+        <item>Support RecyclerView &amp; CardView : https://developer.android.com/training/material/lists-cards.html</item>
+        <item>JUnit &amp; Espresso : https://developer.android.com/training/testing/start/index.html</item>
     </string-array>
 
 </resources>

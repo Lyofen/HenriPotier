@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="api_henri_potier_url">http://henri-potier.xebia.fr/</string>
-    <integer name="shopping_cart_quantity_limit">10</integer>
+    <integer name="shopping_cart_quantity_limit">100</integer>
     <string name="external_app_folder">HenriPotier/</string>
 </resources>
