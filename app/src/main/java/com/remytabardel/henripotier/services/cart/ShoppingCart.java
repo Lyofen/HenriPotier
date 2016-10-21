@@ -107,7 +107,7 @@ public class ShoppingCart {
                 }
                 //we exceed limit we can't add
                 else {
-                    ToastUtils.show(mContext, mContext.getString(R.string.shopping_cart_exceed_limit, Integer.toString(QUANTITY_LIMIT)), Toast.LENGTH_SHORT);
+                    ToastUtils.show(mContext, mContext.getString(R.string.shopping_cart_exceed_limit, QUANTITY_LIMIT), Toast.LENGTH_SHORT);
                 }
             }
         }

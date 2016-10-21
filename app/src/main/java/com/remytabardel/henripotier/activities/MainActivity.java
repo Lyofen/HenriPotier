@@ -1,6 +1,7 @@
 package com.remytabardel.henripotier.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -36,6 +37,8 @@ public class MainActivity extends AbstractActivity
     DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
+    @BindView(R.id.fab)
+    FloatingActionButton mFloatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +104,10 @@ public class MainActivity extends AbstractActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+        //we show floating button only on books fragment
+        setFloatingButtonVisibility(item.getItemId());
+
         switch (item.getItemId()) {
             case R.id.nav_books:
                 replaceFragment(new BooksFragment(), FRAGMENT_CONTAINER_ID);
@@ -121,4 +128,13 @@ public class MainActivity extends AbstractActivity
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void setFloatingButtonVisibility(int currentItemId) {
+        if (currentItemId == R.id.nav_about) {
+            mFloatingActionButton.show();
+        } else {
+            mFloatingActionButton.hide();
+        }
+    }
+
 }

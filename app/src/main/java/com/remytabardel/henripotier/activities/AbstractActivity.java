@@ -14,6 +14,11 @@ import com.remytabardel.henripotier.R;
  */
 
 public abstract class AbstractActivity extends AppCompatActivity {
+    /**
+     * replace fragment in the indicated fragment
+     * @param fragmentToDisplay
+     * @param fragmentContainerId
+     */
     public void replaceFragment(Fragment fragmentToDisplay, int fragmentContainerId) {
         if (fragmentToDisplay != null) {
             final String TAG_CURRENT_FRAGMENT = "CURRENT_FRAGMENT";

@@ -13,4 +13,7 @@
 
     <!-- add to cart view -->
     <dimen name="item_button_size">30dp</dimen>
+
+    <!-- fragment about -->
+    <dimen name="used_libs_spacing_extra">10dp</dimen>
 </resources>

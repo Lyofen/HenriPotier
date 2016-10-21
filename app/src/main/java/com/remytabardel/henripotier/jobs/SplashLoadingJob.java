@@ -31,11 +31,16 @@ import javax.inject.Inject;
 public class SplashLoadingJob extends Job {
     public final static String BONUS_BOOK_ISBN = "le-dev-android";
 
-    @Inject HenriPotierApi mHenriPotierApi;
-    @Inject BookDao mBookDao;
-    @Inject EventPublisher mEventPublisher;
-    @Inject Database mDatabase;
-    @Inject ImageLoader mImageLoader;
+    @Inject
+    HenriPotierApi mHenriPotierApi;
+    @Inject
+    BookDao mBookDao;
+    @Inject
+    EventPublisher mEventPublisher;
+    @Inject
+    Database mDatabase;
+    @Inject
+    ImageLoader mImageLoader;
 
     public SplashLoadingJob() {
         //we dont use requireNetwork because we want handle exception
@@ -142,7 +147,8 @@ public class SplashLoadingJob extends Job {
         mEventPublisher.post(splashLoadingEvent);
     }
 
-    @Override protected int getRetryLimit() {
+    @Override
+    protected int getRetryLimit() {
         return 0;
     }
 

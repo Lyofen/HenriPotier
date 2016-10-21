@@ -9,12 +9,12 @@
 
     <!-- books fragment -->
     <string name="fragment_books_title">Henri Potier Collection</string>
-    <string name="item_book_price">%1$f €</string>
+    <string name="item_book_price">%1$.2f €</string>
 
     <!-- cart fragment -->
     <string name="fragment_cart_title">Cart (%1$d)</string>
     <string name="item_cart_isbn">isbn : %1$s</string>
-    <string name="item_cart_price">Unit price : %1$f €</string>
+    <string name="item_cart_price">Unit price : %1$.2f €</string>
     <string name="fragment_cart_empty_text">You\'re shopping cart is empty, look our collection !</string>
     <string name="fragment_cart_button_look">Look collection</string>
     <string name="fragment_cart_button_purchase">Purchase</string>
@@ -30,11 +30,11 @@
     <string name="activity_order_summary_text_err">Error during recovering summary. Please check you\'re internet connection.</string>
     <string name="activity_order_summary_button_retry">Retry</string>
     <string name="activity_order_summary_button_return">Return</string>
-    <string name="item_order_description">%1$d X %2$f €</string>
-    <string name="item_order_total_price">%1$f €</string>
-    <string name="item_order_footer_total_price">Total price : %1f €</string>
-    <string name="item_order_footer_discount">Discount : %1$f €</string>
-    <string name="item_order_footer_final_price">Final price : %1$f €</string>
+    <string name="item_order_description">%1$d X %2$.2f €</string>
+    <string name="item_order_total_price">%1$.2f €</string>
+    <string name="item_order_footer_total_price">Total price : %1.2f €</string>
+    <string name="item_order_footer_discount">Discount : %1$.2f €</string>
+    <string name="item_order_footer_final_price">Final price : %1$.2f €</string>
 
     <!-- ConnectionErrorDialog -->
     <string name="dialog_connection_error_retry">Retry</string>
@@ -47,5 +47,21 @@
     <string name="nav_main_item_debug">Debug</string>
 
     <!-- shopping cart -->
-    <string name="shopping_cart_exceed_limit">You can\'t exceed %1$s books in cart</string>
+    <string name="shopping_cart_exceed_limit">You can\'t exceed %1$d books in cart</string>
+
+    <!-- about fragment -->
+    <string name="fragment_about_developped_by">Developped by Remy Tabardel</string>
+    <string-array name="fragment_about_libs">
+        <item>Dagger : https://google.github.io/dagger</item>
+        <item>Retrofit : https://square.github.io/retrofit</item>
+        <item>EventBus : https://github.com/greenrobot/EventBus</item>
+        <item>ButterKnife : https://github.com/JakeWharton/butterknife</item>
+        <item>Glide : https://github.com/bumptech/glide</item>
+        <item>Picasso : https://github.com/square/picasso</item>
+        <item>LeakCanary : https://github.com/square/leakcanary</item>
+        <item>AndroidPriorityJobqueue : https://github.com/path/android-priority-jobqueue</item>
+        <item>DBFlow : https://github.com/Raizlabs/DBFlow</item>
+        <item>Jackson : https://github.com/FasterXML/jackson</item>
+    </string-array>
+
 </resources>
