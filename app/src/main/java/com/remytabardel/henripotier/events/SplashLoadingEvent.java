@@ -4,6 +4,7 @@ import android.support.annotation.IntDef;
 
 /**
  * @author Remy Tabardel
+ *         event send by SplashLoadingJob
  */
 
 public class SplashLoadingEvent {

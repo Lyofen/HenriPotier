@@ -16,13 +16,11 @@ import java.util.List;
 
 /**
  * @author Remy Tabardel
- *         Manage shopping cart to add, remove and save in database
+ *         Manage shopping cart to add, remove and save  items (books) in database
  */
 
 public class ShoppingCart {
-    //we cant purchase lot of quantity because of get limitation
-    private final int QUANTITY_LIMIT;
-
+    private final int mQuantityLimit;
     private List<CartItem> mItems;
     private int mCurrentItemsQuantity;//avoid compute quantity every time, we can keep value
     private CartItemDao mCartItemDao;
@@ -30,15 +28,24 @@ public class ShoppingCart {
     private Context mContext;
 
     public ShoppingCart(Context context, CartItemDao cartItemDao, BookDao bookDao) {
-        QUANTITY_LIMIT = context.getResources().getInteger(R.integer.shopping_cart_quantity_limit);
+        mQuantityLimit = context.getResources().getInteger(R.integer.shopping_cart_quantity_limit);
         mContext = context;
         mCartItemDao = cartItemDao;
         mItems = cartItemDao.selectAll();
         mMutex = new Object();
         mCurrentItemsQuantity = 0;
 
-        //we need to check if book registered in cart already exist, if not we must remove it
+        //we need to check if book registered in cart already exist (maybe data changed), if not we must remove it
         checkItems(bookDao);
+    }
+
+    public int getQuantityLimit() {
+        return mQuantityLimit;
+    }
+
+    public void deleteAll() {
+        mItems.clear();
+        mCurrentItemsQuantity = 0;
     }
 
     /**
@@ -62,12 +69,12 @@ public class ShoppingCart {
         }
     }
 
-    public int getTotalQuantity() {
+    public int getCurrentItemsQuantity() {
         return mCurrentItemsQuantity;
     }
 
     public boolean isCartFull() {
-        return mCurrentItemsQuantity == QUANTITY_LIMIT;
+        return mCurrentItemsQuantity == mQuantityLimit;
     }
 
     public List<CartItem> getItems() {
@@ -78,7 +85,7 @@ public class ShoppingCart {
      * add book to list cart, if already in, add 1 to quantity
      *
      * @param isbn
-     * @return true if added, false if cant add because exceed QUANTITY_LIMIT
+     * @return true if added, false if cant add because exceed mQuantityLimit
      */
     @MainThread
     public boolean addItem(String isbn) {
@@ -87,7 +94,7 @@ public class ShoppingCart {
         if (TextUtils.isEmpty(isbn) == false) {
             synchronized (mMutex) {
                 //if we dont exceed limit we can add
-                if ((mCurrentItemsQuantity + 1) <= QUANTITY_LIMIT) {
+                if (isCartFull() == false) {
                     CartItem cartItem = researchItem(isbn);
 
                     itemAdded = true;
@@ -104,10 +111,6 @@ public class ShoppingCart {
                         cartItem.setQuantity(cartItem.getQuantity() + 1);
                         mCartItemDao.update(cartItem);
                     }
-                }
-                //we exceed limit we can't add
-                else {
-                    ToastUtils.show(mContext, mContext.getString(R.string.shopping_cart_exceed_limit, QUANTITY_LIMIT), Toast.LENGTH_SHORT);
                 }
             }
         }

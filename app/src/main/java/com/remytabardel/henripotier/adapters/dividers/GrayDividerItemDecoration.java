@@ -10,6 +10,10 @@ import android.view.View;
 
 import com.remytabardel.henripotier.R;
 
+/**
+ * @author Remy Tabardel
+ * gray divider to separate view in recyclerview
+ */
 public class GrayDividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
 

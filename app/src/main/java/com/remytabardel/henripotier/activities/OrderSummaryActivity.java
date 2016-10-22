@@ -28,6 +28,7 @@ import butterknife.OnClick;
 
 /**
  * @author Remy Tabardel
+ *         activity to resume cart and indicate discount and final price
  */
 
 public class OrderSummaryActivity extends AbstractActivity {
@@ -36,12 +37,9 @@ public class OrderSummaryActivity extends AbstractActivity {
     @Inject EventPublisher mEventPublisher;
     @Inject ShoppingCart mShoppingCart;
 
-    @BindView(R.id.recyclerview)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.progressbar)
-    View mProgressBar;
-    @BindView(R.id.view_error)
-    View mViewError;
+    @BindView(R.id.recyclerview) RecyclerView mRecyclerView;
+    @BindView(R.id.progressbar) View mProgressBar;
+    @BindView(R.id.view_error) View mViewError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +75,14 @@ public class OrderSummaryActivity extends AbstractActivity {
     public void onGetBestOfferEvent(GetBestOfferEvent getBestOfferEvent) {
         switch (getBestOfferEvent.getResult()) {
             case GetBestOfferEvent.OFFER_RESULT_OK:
-                initList(getBestOfferEvent.getBestOffer());
+                populateRecyclerView(getBestOfferEvent.getBestOffer());
                 AnimUtils.crossfade(this, mProgressBar, mRecyclerView);
                 break;
+            //we treat all errors with same message, but we can also adapt him
             case GetBestOfferEvent.OFFER_RESULT_ERR_INTERNET:
             case GetBestOfferEvent.OFFER_RESULT_ERR_UNKNOWN:
             default:
+                //we can't recover offer, so we render error message
                 AnimUtils.crossfade(this, mProgressBar, mViewError);
                 break;
         }
@@ -93,7 +93,7 @@ public class OrderSummaryActivity extends AbstractActivity {
      *
      * @param bestoffer
      */
-    private void initList(Offer bestoffer) {
+    private void populateRecyclerView(Offer bestoffer) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new GrayDividerItemDecoration(this));
 

@@ -35,12 +35,9 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.textview_title)
-        TextView mTextViewTitle;
-        @BindView(R.id.textview_description)
-        TextView mTextViewDescription;
-        @BindView(R.id.textview_total_price)
-        TextView mTextViewTotalPrice;
+        @BindView(R.id.textview_title) TextView mTextViewTitle;
+        @BindView(R.id.textview_description) TextView mTextViewDescription;
+        @BindView(R.id.textview_total_price) TextView mTextViewTotalPrice;
 
         public ItemViewHolder(View view) {
             super(view);
@@ -48,13 +45,13 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+    /**
+     * view to resume cart purchase
+     */
     public static class FooterViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.textview_total_price)
-        TextView mTextViewTotalPrice;
-        @BindView(R.id.textview_discount)
-        TextView mTextViewDiscount;
-        @BindView(R.id.textview_final_price)
-        TextView mTextViewFinalPrice;
+        @BindView(R.id.textview_total_price) TextView mTextViewTotalPrice;
+        @BindView(R.id.textview_discount) TextView mTextViewDiscount;
+        @BindView(R.id.textview_final_price) TextView mTextViewFinalPrice;
 
         public FooterViewHolder(View view) {
             super(view);
@@ -63,7 +60,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override public int getItemViewType(int position) {
-        //if it's footer view
+        //check for footer view
         return isFooterPosition(position) ? TYPE_FOOTER : TYPE_ITEM;
     }
 

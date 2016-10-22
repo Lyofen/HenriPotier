@@ -6,6 +6,7 @@ import com.remytabardel.henripotier.models.Offer;
 
 /**
  * @author Remy Tabardel
+ *         event send by GetBestOfferJob
  */
 
 public class GetBestOfferEvent {

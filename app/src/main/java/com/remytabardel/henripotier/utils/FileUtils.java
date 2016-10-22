@@ -48,7 +48,7 @@ public class FileUtils {
         boolean isOk = true;
 
         try {
-            int read = 0;
+            int read;
             byte[] bytes = new byte[1024];
 
             while ((read = inputStream.read(bytes)) != -1) {

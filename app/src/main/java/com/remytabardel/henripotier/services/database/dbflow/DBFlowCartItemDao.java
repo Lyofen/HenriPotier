@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * @author Remy Tabardel
+ *         Link between CartItemDao interface and DBFlow
  */
 
 public class DBFlowCartItemDao implements CartItemDao {

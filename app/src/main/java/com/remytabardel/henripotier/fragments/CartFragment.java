@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 import com.remytabardel.henripotier.MyApplication;
 import com.remytabardel.henripotier.R;
-import com.remytabardel.henripotier.activities.OrderSummaryActivity;
 import com.remytabardel.henripotier.activities.MainActivity;
+import com.remytabardel.henripotier.activities.OrderSummaryActivity;
 import com.remytabardel.henripotier.adapters.CartAdapter;
 import com.remytabardel.henripotier.listeners.CartAdapterListener;
 import com.remytabardel.henripotier.services.cart.ShoppingCart;
@@ -29,17 +29,12 @@ import butterknife.OnClick;
  */
 
 public class CartFragment extends AbstractFragment implements CartAdapterListener {
-    @Inject
-    ShoppingCart mShoppingCart;
-    @Inject
-    ImageLoader mImageLoader;
+    @Inject ShoppingCart mShoppingCart;
+    @Inject ImageLoader mImageLoader;
 
-    @BindView(R.id.view_empty)
-    View mEmptyView;
-    @BindView(R.id.view_full)
-    View mFullView;
-    @BindView(R.id.recyclerview)
-    RecyclerView mRecyclerView;
+    @BindView(R.id.view_empty) View mEmptyView;
+    @BindView(R.id.view_full) View mFullView;
+    @BindView(R.id.recyclerview) RecyclerView mRecyclerView;
 
     @Nullable
     @Override

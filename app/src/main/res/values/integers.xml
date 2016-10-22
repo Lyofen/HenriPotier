@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- we show 1 column in recyclerview with portrait mode -->
     <integer name="fragment_books_nb_columns">1</integer>
 </resources>

@@ -21,6 +21,7 @@ import dagger.Component;
 
 /**
  * @author Remy Tabardel
+ * register all modules for provides and inject
  */
 
 @Singleton

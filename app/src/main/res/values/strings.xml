@@ -6,6 +6,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- activity main -->
+    <string name="activity_main_intent_mail_title">Send mail...</string>
     <string name="activity_main_err_mail">There is no email client installed</string>
 
     <!-- books fragment -->
@@ -39,6 +40,7 @@
     <string name="item_order_footer_final_price">Final price : %1$.2f €</string>
 
     <!-- ConnectionErrorDialog -->
+    <string name="dialog_connection_message">get out</string>
     <string name="dialog_connection_error_retry">Retry</string>
     <string name="dialog_connection_error_quit">Quit</string>
 
@@ -53,7 +55,11 @@
 
     <!-- about fragment -->
     <string name="fragment_about_developped_by">Developped by Remy Tabardel</string>
-    <string-array name="fragment_about_libs">
+
+    <!-- /////////////////// STRINGS ONLY IN DEFAULT /////////////////// -->
+
+    <!-- about fragment -->
+    <string-array name="fragment_about_libs" translatable="false">
         <item>Dagger : https://google.github.io/dagger</item>
         <item>Retrofit : https://square.github.io/retrofit</item>
         <item>EventBus : https://github.com/greenrobot/EventBus</item>

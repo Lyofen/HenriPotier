@@ -12,14 +12,10 @@ import com.remytabardel.henripotier.services.database.Database;
 
 @Table(database = Database.class)
 public class BookTheme extends BaseModel {
-    @PrimaryKey
-    String isbn;
-    @Column
-    int colorTextTitle;
-    @Column
-    int colorTextBody;
-    @Column
-    int colorBackground;
+    @PrimaryKey String isbn;
+    @Column int colorTextTitle;
+    @Column int colorTextBody;
+    @Column int colorBackground;
 
     public BookTheme() {
 

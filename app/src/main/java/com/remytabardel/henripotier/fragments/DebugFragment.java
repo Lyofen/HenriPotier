@@ -25,11 +25,9 @@ import butterknife.OnClick;
  */
 
 public class DebugFragment extends AbstractFragment {
-    @Inject
-    Database mDatabase;
+    @Inject Database mDatabase;
 
-    @BindView(R.id.textview_app_config)
-    TextView mTextViewAppConfig;
+    @BindView(R.id.textview_app_config) TextView mTextViewAppConfig;
 
     @Nullable
     @Override

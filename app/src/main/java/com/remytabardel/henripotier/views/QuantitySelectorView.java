@@ -17,15 +17,13 @@ import butterknife.ButterKnife;
 
 /**
  * @author Remy Tabardel
+ * view show in item_cart to set quantity of book
  */
 
 public class QuantitySelectorView extends LinearLayout {
-    @BindView(R.id.imagebutton_quantity_less)
-    ImageButton mImageButtonQuantityLess;
-    @BindView(R.id.imagebutton_quantity_more)
-    ImageButton mImageButtonQuantityMore;
-    @BindView(R.id.textview_quantity)
-    TextView mTextViewQuantity;
+    @BindView(R.id.imagebutton_quantity_less) ImageButton mImageButtonQuantityLess;
+    @BindView(R.id.imagebutton_quantity_more) ImageButton mImageButtonQuantityMore;
+    @BindView(R.id.textview_quantity) TextView mTextViewQuantity;
 
     public QuantitySelectorView(Context context) {
         super(context);

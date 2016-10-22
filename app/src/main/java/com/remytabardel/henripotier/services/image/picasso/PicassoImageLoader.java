@@ -22,17 +22,12 @@ public class PicassoImageLoader implements ImageLoader {
     }
 
     @Override public void load(String path, ImageView imageView) {
-        Picasso.with(mContext).load(path).into(imageView);
-    }
-
-    @Override public void loadGif(int resId, ImageView imageView) {
-        //picasso dont support gif
-        Picasso.with(mContext).load(resId).into(imageView);
+        Picasso.with(mContext).load(path).fit().centerInside().into(imageView);
     }
 
     @Override public Palette getPalette(Context context, String path) {
         Palette palette = null;
-        Bitmap bitmap = null;
+        Bitmap bitmap;
 
         try {
             bitmap = Picasso.with(context).load(path).get();
@@ -43,9 +38,5 @@ public class PicassoImageLoader implements ImageLoader {
         }
 
         return palette;
-    }
-
-    @Override public void preload(String path) {
-        Picasso.with(mContext).load(path).fetch();
     }
 }

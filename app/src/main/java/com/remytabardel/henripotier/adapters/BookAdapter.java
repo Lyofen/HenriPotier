@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.remytabardel.henripotier.R;
 import com.remytabardel.henripotier.models.Book;
 import com.remytabardel.henripotier.services.cart.ShoppingCart;
 import com.remytabardel.henripotier.services.image.ImageLoader;
+import com.remytabardel.henripotier.utils.ToastUtils;
 import com.remytabardel.henripotier.views.AddToCartView;
 
 import java.util.List;
@@ -26,16 +28,11 @@ import butterknife.ButterKnife;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.textview_title)
-        TextView mTextViewTitle;
-        @BindView(R.id.textview_price)
-        TextView mTextViewPrice;
-        @BindView(R.id.imageview_cover)
-        ImageView mImageViewCover;
-        @BindView(R.id.relative_content)
-        RelativeLayout mRelativeContent;
-        @BindView(R.id.addtocardview)
-        AddToCartView mAddToCartView;
+        @BindView(R.id.textview_title) TextView mTextViewTitle;
+        @BindView(R.id.textview_price) TextView mTextViewPrice;
+        @BindView(R.id.imageview_cover) ImageView mImageViewCover;
+        @BindView(R.id.relative_content) RelativeLayout mRelativeContent;
+        @BindView(R.id.addtocardview) AddToCartView mAddToCartView;
 
         public ViewHolder(View view) {
             super(view);
@@ -57,9 +54,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_book, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_book, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
+
         return viewHolder;
     }
 
@@ -70,6 +67,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         mImageLoader.load(currentBook.getCover(), holder.mImageViewCover);
         holder.mTextViewTitle.setText(currentBook.getTitle());
         holder.mTextViewPrice.setText(mContext.getString(R.string.item_book_price, currentBook.getPrice()));
+        //if we add book in cart we change button
         setAddToCartView(holder.mAddToCartView, currentBook);
 
         //set theme colors
@@ -94,6 +92,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
                         addToCartView.showNext();
                         //to add more than 1 book, we must go in cart fragment
                         addToCartView.setOnClickListener(null);
+                    } else {
+                        ToastUtils.show(mContext, mContext.getString(R.string.shopping_cart_exceed_limit, mShoppingCart.getQuantityLimit()), Toast.LENGTH_SHORT);
                     }
                 }
             });

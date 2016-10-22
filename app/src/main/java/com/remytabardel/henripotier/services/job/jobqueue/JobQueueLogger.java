@@ -8,7 +8,7 @@ import com.remytabardel.henripotier.utils.LogUtils;
  * @author Remy Tabardel
  */
 
-public class JobLogger implements CustomLogger {
+public class JobQueueLogger implements CustomLogger {
     @Override
     public boolean isDebugEnabled() {
         return BuildConfig.DEBUG;

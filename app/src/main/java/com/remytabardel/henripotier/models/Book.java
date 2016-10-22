@@ -15,18 +15,12 @@ import com.remytabardel.henripotier.services.database.Database;
 
 @Table(database = Database.class)
 public class Book extends BaseModel {
-    @PrimaryKey
-    String isbn;
-    @Column
-    String title;
-    @Column
-    float price;
-    @Column
-    String cover;
-    @Column
-    int num;
-    @ColumnIgnore
-    BookTheme bookTheme;
+    @PrimaryKey String isbn;
+    @Column String title;
+    @Column float price;
+    @Column String cover;
+    @Column int num;
+    @ColumnIgnore BookTheme bookTheme;
 
     public Book() {
     }

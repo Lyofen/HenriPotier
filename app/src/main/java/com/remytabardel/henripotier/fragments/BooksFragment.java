@@ -30,15 +30,11 @@ import butterknife.ButterKnife;
 
 public class BooksFragment extends AbstractFragment {
 
-    @Inject
-    BookDao mBookDao;
-    @Inject
-    ImageLoader mImageLoader;
-    @Inject
-    ShoppingCart mShoppingCart;
+    @Inject BookDao mBookDao;
+    @Inject ImageLoader mImageLoader;
+    @Inject ShoppingCart mShoppingCart;
 
-    @BindView(R.id.recyclerview)
-    RecyclerView mRecyclerView;
+    @BindView(R.id.recyclerview) RecyclerView mRecyclerView;
 
     @Nullable
     @Override

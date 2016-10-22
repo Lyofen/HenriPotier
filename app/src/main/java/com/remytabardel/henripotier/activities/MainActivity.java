@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -29,10 +30,10 @@ import butterknife.OnClick;
 
 /**
  * @author Remy Tabardel
+ *         activity with navigation menu
  */
 
-public class MainActivity extends AbstractActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AbstractActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -51,10 +52,15 @@ public class MainActivity extends AbstractActivity
 
         initNavigation();
 
-        //we set the first fragment only on the first onCreate
+        //we set the first fragment only on the first onCreate, ignore on rotation
         if (savedInstanceState == null) {
             //we perform click to set first screen and set menu books checked
             performNavigationClick(R.id.nav_books);
+        } else {
+            //we need to display floating button only with about fragment
+            Fragment currentFragmentDisplayed = getCurrentFragmentDisplayed();
+            boolean displayFloatingButton = (currentFragmentDisplayed != null) && (currentFragmentDisplayed.getClass().equals(AboutFragment.class));
+            setFloatingButtonVisibility(displayFloatingButton);
         }
     }
 
@@ -85,10 +91,10 @@ public class MainActivity extends AbstractActivity
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"remytabardel@live.fr"});
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.developper_email)});
 
         try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            startActivity(Intent.createChooser(emailIntent, getString(R.string.activity_main_intent_mail_title)));
             LogUtils.i("Email activity launched");
         } catch (Exception e) {
             LogUtils.e("Impossible to launch activity email", e);
@@ -132,15 +138,20 @@ public class MainActivity extends AbstractActivity
                 break;
         }
 
-        //we show floating button only on books fragment
-        setFloatingButtonVisibility(item.getItemId());
+        //we show floating button only with about fragment
+        setFloatingButtonVisibility(item.getItemId() == R.id.nav_about);
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void setFloatingButtonVisibility(int currentItemId) {
-        if (currentItemId == R.id.nav_about) {
+    /**
+     * we need to show floating button only with AboutFragment
+     *
+     * @param isVisible
+     */
+    private void setFloatingButtonVisibility(boolean isVisible) {
+        if (isVisible) {
             mFloatingActionButton.show();
         } else {
             mFloatingActionButton.hide();

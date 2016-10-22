@@ -7,6 +7,7 @@ import com.remytabardel.henripotier.utils.FileUtils;
 
 /**
  * @author Remy Tabardel
+ * provide all usefull methods to manage database
  */
 
 @com.raizlabs.android.dbflow.annotation.Database(name = Database.NAME, version = Database.VERSION)
@@ -25,6 +26,11 @@ public class Database {
         return mContext.getDatabasePath(getFullName()).getAbsolutePath();
     }
 
+    /**
+     * export to external directory, need WRITE_STORAGE permission
+     * @param exportFolder
+     * @return
+     */
     public boolean export(String exportFolder) {
         if (exportFolder == null)
             return false;

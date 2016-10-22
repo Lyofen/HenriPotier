@@ -19,13 +19,12 @@ import javax.inject.Inject;
 
 /**
  * @author Remy Tabardel
+ *         activity to recover books content from henri potier api and load palette colors
  */
 
 public class SplashActivity extends AbstractActivity implements ConnectionErrorListener {
-    @Inject
-    JobScheduler mJobScheduler;
-    @Inject
-    EventPublisher mEventPublisher;
+    @Inject JobScheduler mJobScheduler;
+    @Inject EventPublisher mEventPublisher;
 
     private ConnectionErrorDialog mConnectionErrorDialog;
 
@@ -38,9 +37,10 @@ public class SplashActivity extends AbstractActivity implements ConnectionErrorL
 
         mConnectionErrorDialog = new ConnectionErrorDialog(this, this);
 
-        //we look on HenriPotierApi for new data
-        //we could avoid this job if we had already launch app because we have save in database
-        //but it means we should check price etc.. for changements
+        /*we look on HenriPotierApi for new data
+        * we could avoid this job if we had already launch app because we had save in database
+        * but it means we should check price etc.. for changements, so we forvce to update at launch
+        */
         mJobScheduler.addInBackground(new SplashLoadingJob());
     }
 
@@ -65,6 +65,7 @@ public class SplashActivity extends AbstractActivity implements ConnectionErrorL
     public void onRecoverBooksEvent(SplashLoadingEvent event) {
         switch (event.getResult()) {
             case SplashLoadingEvent.LOADING_RESULT_OK:
+                //all is ok, we can start main activity
                 startActivity(new Intent(this, MainActivity.class));
                 break;
             //we should render message for every situation, but we will render only internet pb for the moment (most likely)

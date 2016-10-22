@@ -17,8 +17,7 @@ import butterknife.ButterKnife;
  */
 
 public class AboutFragment extends AbstractFragment {
-    @BindView(R.id.textview_libs)
-    TextView mTextViewUsedLibs;
+    @BindView(R.id.textview_libs) TextView mTextViewUsedLibs;
 
     @Nullable
     @Override

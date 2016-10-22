@@ -16,14 +16,10 @@ import java.util.Calendar;
 
 @Table(database = Database.class)
 public class CartItem extends BaseModel implements Cloneable {
-    @PrimaryKey
-    String isbn;
-    @Column
-    int quantity;
-    @Column
-    long addedTime;
-    @ColumnIgnore
-    Book book;
+    @PrimaryKey String isbn;
+    @Column int quantity;
+    @Column long addedTime;
+    @ColumnIgnore Book book;
 
     public CartItem() {
     }

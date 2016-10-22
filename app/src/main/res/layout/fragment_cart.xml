@@ -13,6 +13,8 @@
             android:id="@+id/button_purchase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/selector_button_purchase"
             android:text="@string/fragment_cart_button_purchase"/>
 
         <android.support.v7.widget.RecyclerView

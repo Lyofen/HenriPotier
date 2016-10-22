@@ -26,6 +26,8 @@ public class ImageModule {
     @Provides
     @Singleton
     ImageLoader provideImagesService(Context context) {
+        //you can choose picasso or glide
+
         return new GlideImageLoader(context);
         //return new PicassoImageLoader(context);
     }

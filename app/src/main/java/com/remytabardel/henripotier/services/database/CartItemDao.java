@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * @author Remy Tabardel
+ * interface to avoid link between dbflow and UI
+ * provide all requests to implement about cart item
  */
 
 public interface CartItemDao {

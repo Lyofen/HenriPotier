@@ -6,8 +6,6 @@ import android.support.v7.graphics.Palette;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.remytabardel.henripotier.services.image.ImageLoader;
 import com.remytabardel.henripotier.utils.LogUtils;
 
@@ -27,11 +25,6 @@ public class GlideImageLoader implements ImageLoader {
         Glide.with(mContext).load(path).into(imageView);
     }
 
-    @Override public void loadGif(int resId, ImageView imageView) {
-        //picasso dont support gif
-        Glide.with(mContext).load(resId).asGif().into(imageView);
-    }
-
     @Override public Palette getPalette(Context context, String path) {
         Palette palette = null;
         Bitmap bitmap = null;
@@ -47,12 +40,5 @@ public class GlideImageLoader implements ImageLoader {
         }
 
         return palette;
-    }
-
-    @Override public void preload(String path) {
-        Glide.with(mContext)
-                .load(path)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .preload();
     }
 }

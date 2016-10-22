@@ -10,7 +10,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * @author Remy Tabardel
- *         Extends this class to use
+ *         Extends this class to use retrofit calls
  */
 
 abstract class AbstractRetrofitApi<C> {

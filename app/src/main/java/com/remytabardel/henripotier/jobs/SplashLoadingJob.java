@@ -14,7 +14,7 @@ import com.remytabardel.henripotier.services.database.Database;
 import com.remytabardel.henripotier.services.database.Transaction;
 import com.remytabardel.henripotier.services.event.EventPublisher;
 import com.remytabardel.henripotier.services.image.ImageLoader;
-import com.remytabardel.henripotier.services.job.jobqueue.Priority;
+import com.remytabardel.henripotier.services.job.jobqueue.JobQueuePriority;
 import com.remytabardel.henripotier.services.network.HenriPotierApi;
 import com.remytabardel.henripotier.services.network.json.BookJson;
 import com.remytabardel.henripotier.utils.LogUtils;
@@ -29,22 +29,18 @@ import javax.inject.Inject;
  */
 
 public class SplashLoadingJob extends Job {
+    //stock in static field because henri potier api doesnt want this isbn..
     public final static String BONUS_BOOK_ISBN = "le-dev-android";
 
-    @Inject
-    HenriPotierApi mHenriPotierApi;
-    @Inject
-    BookDao mBookDao;
-    @Inject
-    EventPublisher mEventPublisher;
-    @Inject
-    Database mDatabase;
-    @Inject
-    ImageLoader mImageLoader;
+    @Inject HenriPotierApi mHenriPotierApi;
+    @Inject BookDao mBookDao;
+    @Inject EventPublisher mEventPublisher;
+    @Inject Database mDatabase;
+    @Inject ImageLoader mImageLoader;
 
     public SplashLoadingJob() {
         //we dont use requireNetwork because we want handle exception
-        super(new Params(Priority.HIGH));
+        super(new Params(JobQueuePriority.HIGH));
 
         MyApplication.getInstance().getComponent().inject(this);
     }
@@ -90,7 +86,7 @@ public class SplashLoadingJob extends Job {
         jsonBooks.add(new BookJson(BONUS_BOOK_ISBN,
                 "Rémy Tabardel",
                 45,
-                "android.resource://com.remytabardel.henripotier/drawable/bg_splash"));
+                "android.resource://com.remytabardel.henripotier/drawable/cv_remytabardel"));
     }
 
     private void saveJsonInDatabase(List<BookJson> jsonBooks) throws Throwable {
@@ -147,6 +143,10 @@ public class SplashLoadingJob extends Job {
         mEventPublisher.post(splashLoadingEvent);
     }
 
+    /**
+     * we dont want to retry job, user choose to retry or quit application
+     * @return
+     */
     @Override
     protected int getRetryLimit() {
         return 0;

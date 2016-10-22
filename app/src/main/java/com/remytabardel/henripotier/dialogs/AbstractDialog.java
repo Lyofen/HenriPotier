@@ -31,7 +31,6 @@ public abstract class AbstractDialog extends AlertDialog {
     public void show() {
         if (!mIsOpen) {
             mIsOpen = true;
-            onShow();
             super.show();
         }
     }
@@ -40,7 +39,6 @@ public abstract class AbstractDialog extends AlertDialog {
     public void dismiss() {
         if (mIsOpen) {
             mIsOpen = false;
-            onDismiss();
             super.dismiss();
         }
     }
@@ -52,10 +50,6 @@ public abstract class AbstractDialog extends AlertDialog {
     public View getView() {
         return mView;
     }
-
-    public abstract void onShow();
-
-    public abstract void onDismiss();
 
     public abstract void onViewCreated(Context context, View view);
 

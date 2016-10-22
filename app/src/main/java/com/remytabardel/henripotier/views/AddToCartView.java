@@ -9,6 +9,7 @@ import com.remytabardel.henripotier.R;
 
 /**
  * @author Remy Tabardel
+ * View show in item_book to indicate if u can add to cart or if book is already in cart
  */
 
 public class AddToCartView extends ViewSwitcher {

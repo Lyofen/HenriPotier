@@ -4,8 +4,9 @@ import com.birbit.android.jobqueue.Job;
 
 /**
  * @author Remy Tabardel
+ *         interface to avoid link between AndroidJobQueue and UI
  */
 
-public interface JobScheduler{
+public interface JobScheduler {
     void addInBackground(Job job);
 }

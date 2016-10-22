@@ -1,7 +1,6 @@
 package com.remytabardel.henripotier;
 
 
-import android.app.Application;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
@@ -19,7 +18,7 @@ import com.squareup.leakcanary.LeakCanary;
 public class MyApplication extends MultiDexApplication {
     //need application instance for injection
     private static MyApplication mInstance;
-    private AppComponent mAppComponent;
+    protected AppComponent mAppComponent;
 
     public MyApplication() {
         mInstance = this;
@@ -34,7 +33,7 @@ public class MyApplication extends MultiDexApplication {
         super.onCreate();
 
         //init component for dependencies injections
-        buildDaggerGraph();
+        mAppComponent = buildComponent();
 
         //init DBFlow for database
         FlowManager.init(new FlowConfig.Builder(this).build());
@@ -52,8 +51,8 @@ public class MyApplication extends MultiDexApplication {
         return mAppComponent;
     }
 
-    private void buildDaggerGraph() {
-        mAppComponent = DaggerAppComponent.builder()
+    protected AppComponent buildComponent() {
+        return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
     }

@@ -11,7 +11,7 @@ import com.remytabardel.henripotier.events.GetBestOfferEvent;
 import com.remytabardel.henripotier.models.Offer;
 import com.remytabardel.henripotier.services.cart.ShoppingCart;
 import com.remytabardel.henripotier.services.event.EventPublisher;
-import com.remytabardel.henripotier.services.job.jobqueue.Priority;
+import com.remytabardel.henripotier.services.job.jobqueue.JobQueuePriority;
 import com.remytabardel.henripotier.services.network.HenriPotierApi;
 import com.remytabardel.henripotier.services.network.json.CommercialOffersJson;
 import com.remytabardel.henripotier.services.network.json.OfferJson;
@@ -24,18 +24,17 @@ import javax.inject.Inject;
 
 /**
  * @author Remy Tabardel
+ *         use list of shopping cart isbn to recover best offer from henri potier api
  */
 
 public class GetBestOfferJob extends Job {
-    @Inject
-    ShoppingCart mShoppingCart;
-    @Inject
-    HenriPotierApi mHenriPotierApi;
+    @Inject ShoppingCart mShoppingCart;
+    @Inject HenriPotierApi mHenriPotierApi;
     @Inject EventPublisher mEventPublisher;
 
     public GetBestOfferJob() {
         //we dont use requireNetwork because we want handle exception
-        super(new Params(Priority.HIGH));
+        super(new Params(JobQueuePriority.HIGH));
 
         MyApplication.getInstance().getComponent().inject(this);
     }
@@ -123,6 +122,10 @@ public class GetBestOfferJob extends Job {
         mEventPublisher.post(getBestOfferEvent);
     }
 
+    /**
+     * we dont want to retry job, user choose to retry or return to cart list
+     * @return
+     */
     @Override
     protected int getRetryLimit() {
         return 0;

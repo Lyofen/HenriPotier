@@ -9,5 +9,7 @@
     <color name="colorShapeGradientGray">#EEEEEE</color>
     <color name="colorShapeRectPriceBorder">#88000000</color>
     <color name="colorShapeRectPriceBackground">#88FFFFFF</color>
+    <color name="colorSelectorConnectionError">#8AB9C3</color>
+    <color name="colorSelectorConnectionErrorDark">#2475A0</color>
 
 </resources>

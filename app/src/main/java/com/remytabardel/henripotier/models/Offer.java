@@ -65,7 +65,9 @@ public class Offer {
                 discount = amount * value / 100;
                 break;
             case SLICE:
-                for (float currentAmount = amount; currentAmount >= sliceValue; currentAmount -= sliceValue, discount += value)
+                for (float currentAmount = amount;
+                     currentAmount >= sliceValue;
+                     currentAmount -= sliceValue, discount += value)
                     ;
                 break;
         }

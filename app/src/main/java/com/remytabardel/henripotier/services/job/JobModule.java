@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.birbit.android.jobqueue.config.Configuration;
 import com.birbit.android.jobqueue.log.CustomLogger;
-import com.remytabardel.henripotier.services.job.jobqueue.JobLogger;
+import com.remytabardel.henripotier.services.job.jobqueue.JobQueueLogger;
 import com.remytabardel.henripotier.services.job.jobqueue.JobQueueScheduler;
 
 import javax.inject.Singleton;
@@ -45,7 +45,7 @@ public class JobModule {
 
     @Provides
     CustomLogger proviCustomLogger() {
-        return new JobLogger();
+        return new JobQueueLogger();
     }
 }
 

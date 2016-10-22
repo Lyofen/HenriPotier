@@ -13,6 +13,7 @@ import java.util.List;
  */
 
 public interface HenriPotierApi {
+    //used for getCommercialOffers service
     String ISBN_SEPARATOR = ",";
 
     /**
