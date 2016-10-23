@@ -5,6 +5,7 @@ import com.remytabardel.henripotier.services.AppModule;
 
 /**
  * @author Remy Tabardel
+ *         provide custom component to use mock modules
  */
 
 public class MyMockApplication extends MyApplication {

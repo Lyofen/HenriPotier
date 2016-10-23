@@ -20,7 +20,7 @@ public class BookTest {
     }
 
     @Test
-    public void equals_should_return_true_when_isbn_are_equals() {
+    public void returnTrueWhenIsbnAreEquals() {
         assertEquals(true, mBook1.equals(mBook2));
     }
 

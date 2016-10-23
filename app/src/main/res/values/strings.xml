@@ -40,7 +40,7 @@
     <string name="item_order_footer_final_price">Final price : %1$.2f €</string>
 
     <!-- ConnectionErrorDialog -->
-    <string name="dialog_connection_message">get out</string>
+    <string name="dialog_connection_message">Get out of this backwater : you need internet connection to access the content</string>
     <string name="dialog_connection_error_retry">Retry</string>
     <string name="dialog_connection_error_quit">Quit</string>
 

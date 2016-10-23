@@ -5,7 +5,6 @@ import com.remytabardel.henripotier.activities.SplashActivity;
 import com.remytabardel.henripotier.dialogs.ConnectionErrorDialog;
 import com.remytabardel.henripotier.fragments.BooksFragment;
 import com.remytabardel.henripotier.fragments.CartFragment;
-import com.remytabardel.henripotier.fragments.DebugFragment;
 import com.remytabardel.henripotier.jobs.GetBestOfferJob;
 import com.remytabardel.henripotier.jobs.SplashLoadingJob;
 import com.remytabardel.henripotier.services.cart.CartModule;
@@ -21,7 +20,7 @@ import dagger.Component;
 
 /**
  * @author Remy Tabardel
- * register all modules for provides and inject
+ *         register all modules for provides and inject
  */
 
 @Singleton
@@ -42,8 +41,6 @@ public interface AppComponent {
     void inject(BooksFragment injectedClass);
 
     void inject(CartFragment injectedClass);
-
-    void inject(DebugFragment injectedClass);
 
     void inject(GetBestOfferJob injectedClass);
 

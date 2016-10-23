@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import static android.R.attr.fragment;
+
 /**
  * @author Remy Tabardel
  *         if we need common feature between activities we can use this class

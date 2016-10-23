@@ -41,7 +41,7 @@
     <string name="item_order_footer_final_price">Prix final : %1$.2f €</string>
 
     <!-- ConnectionErrorDialog -->
-    <string name="dialog_connection_message">Sortez de ce trou perdu : vous avez besoin d\'une connexion internet pour accéder au contenu</string>
+    <string name="dialog_connection_message">Sortez de ce trou perdu: vous avez besoin d\'une connexion internet pour accéder au contenu</string>
     <string name="dialog_connection_error_retry">Réessayer</string>
     <string name="dialog_connection_error_quit">Quitter</string>
 
@@ -55,5 +55,5 @@
     <string name="shopping_cart_exceed_limit">Vous ne pouvez pas excéder %1$d livres dans votre panier</string>
 
     <!-- about fragment -->
-    <string name="fragment_about_developped_by">Développée par Rémy Tabardel</string>
+    <string name="fragment_about_developped_by">Développé par Rémy Tabardel</string>
 </resources>

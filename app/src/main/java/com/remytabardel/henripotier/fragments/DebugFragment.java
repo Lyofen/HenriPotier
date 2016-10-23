@@ -25,8 +25,6 @@ import butterknife.OnClick;
  */
 
 public class DebugFragment extends AbstractFragment {
-    @Inject Database mDatabase;
-
     @BindView(R.id.textview_app_config) TextView mTextViewAppConfig;
 
     @Nullable
@@ -44,8 +42,6 @@ public class DebugFragment extends AbstractFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        MyApplication.getInstance().getComponent().inject(this);
-
         mTextViewAppConfig.setText(getAppConfifDescription());
     }
 
@@ -54,16 +50,5 @@ public class DebugFragment extends AbstractFragment {
         return "Version name : " + BuildConfig.VERSION_NAME + "\n"
                 + "Version code : " + BuildConfig.VERSION_CODE + "\n"
                 + "HenriPotierApi url : " + getString(R.string.api_henri_potier_url);
-    }
-
-    @OnClick(R.id.button_export_database)
-    public void onClickButtonExportDatabase() {
-        String exportFolder = getString(R.string.external_app_folder);
-
-        if (mDatabase.export(exportFolder)) {
-            ToastUtils.show(getContext(), "Database exported in " + mDatabase.getExportDirectory() + exportFolder, Toast.LENGTH_SHORT);
-        } else {
-            ToastUtils.show(getContext(), "Error during export", Toast.LENGTH_SHORT);
-        }
     }
 }

@@ -106,6 +106,10 @@ public class MainActivity extends AbstractActivity implements NavigationView.OnN
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+        //if it's not books fragment on the screen, we back on him
+        else if (getCurrentFragmentDisplayed().getClass().equals(BooksFragment.class) == false) {
+            performNavigationClick(R.id.nav_books);
         } else {
             super.onBackPressed();
         }

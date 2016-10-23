@@ -3,6 +3,7 @@ package com.remytabardel.henripotier.services.image;
 import android.content.Context;
 
 import com.remytabardel.henripotier.services.image.glide.GlideImageLoader;
+import com.remytabardel.henripotier.services.image.picasso.PicassoImageLoader;
 
 import javax.inject.Singleton;
 

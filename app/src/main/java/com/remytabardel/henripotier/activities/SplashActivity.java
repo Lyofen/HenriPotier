@@ -56,6 +56,11 @@ public class SplashActivity extends AbstractActivity implements ConnectionErrorL
         super.onStop();
     }
 
+    @Override
+    public void onBackPressed() {
+        //we disable back in this screen, wait the job
+    }
+
     /**
      * Event sent by RecoverBooksJob to recover books from HenriPotierApi
      *
@@ -67,6 +72,7 @@ public class SplashActivity extends AbstractActivity implements ConnectionErrorL
             case SplashLoadingEvent.LOADING_RESULT_OK:
                 //all is ok, we can start main activity
                 startActivity(new Intent(this, MainActivity.class));
+                finish();
                 break;
             //we should render message for every situation, but we will render only internet pb for the moment (most likely)
             case SplashLoadingEvent.LOADING_RESULT_ERR_INSERT:

@@ -1,5 +1,6 @@
 package com.remytabardel.henripotier;
 
+import com.remytabardel.henripotier.activities.MainActivityTest;
 import com.remytabardel.henripotier.services.AppComponent;
 import com.remytabardel.henripotier.services.AppModule;
 import com.remytabardel.henripotier.services.ShoppingCartTest;
@@ -29,4 +30,6 @@ import dagger.Component;
         CartModule.class})
 public interface TestAppComponent extends AppComponent {
     void inject(ShoppingCartTest injectedClass);
+
+    void inject(MainActivityTest injectedClass);
 }

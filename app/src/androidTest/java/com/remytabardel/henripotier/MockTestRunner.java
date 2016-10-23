@@ -6,6 +6,7 @@ import android.support.test.runner.AndroidJUnitRunner;
 
 /**
  * @author Remy Tabardel
+ *         provide MyMockApplication instead of MyApplication for custom component
  */
 
 public class MockTestRunner extends AndroidJUnitRunner {
